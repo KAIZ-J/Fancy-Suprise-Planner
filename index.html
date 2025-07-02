@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+      <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -19,16 +20,19 @@
       href="https://fonts.googleapis.com/css?family=Pacifico|Poppins|Montessart"
     />
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="shortcut icon"
-      href="/assets/Circle_Monogram_Logo_-removebg-preview.png"
-      type="image/png"
-    />
+  
   </head>
   <body>
     <nav class="navbar">
       <div class="logo">
-        <img src="/FANCY__2_-removebg-preview.png" alt="logo" />
+        <dotlottie-player 
+    src="https://lottie.host/98508fcd-c646-43af-8924-52cc2755ae24/qqb9iAroZk.lottie" 
+    background="transparent" 
+    speed="1" 
+    style="width: 85px; height: 85px;" 
+    loop 
+    autoplay>
+  </dotlottie-player>
       </div>
 
       <div class="nav-links">
@@ -59,8 +63,8 @@
         </h5>
 
         <div id="action">
-          <a href="#products"><button id="Browse">Explore Packages</button></a>
-          <a href="#products"><button id="Browse">Watch On tiktok</button></a>
+          <a href="#packages"><button id="Browse">Explore Packages</button></a>
+          <a href="https://www.tiktok.com/@fancy_surprise_planner?_t=ZM-8xhHtPbX3lm&_r=1"><button id="Browse">Watch On tiktok</button></a>
         </div>
         <br /><br />
       </div>
@@ -116,7 +120,7 @@
       <h1>Gallery</h1>
       <p>Watch our beautiful designs in action – follow us on TikTok!</p>
 
-      <a href=""><button id="tiktok">Visit TikTok</button></a>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner?_t=ZM-8xhHtPbX3lm&_r=1"><button id="tiktok">Visit TikTok</button></a>
     </div>
     <div class="section about" id="about">
       <br /><br />
@@ -145,35 +149,4 @@
 
     <div class="footer">Copyright &copy 2025; Made By fancysurpriseplanner</div>
   </body>
-  <script>
-    function changeclr() {
-      const imgpr = document.getElementById("pro");
-      const modecolor = document.getElementById("modecolor");
-      const browse = document.getElementById("Browse");
-      const body = document.body;
-      const cards = document.querySelectorAll(".card");
-      const subc = document.getElementById("sub");
-      const fooot = document.querySelector(".footer");
-      if (
-        body.style.backgroundColor === "rgb(242, 246, 248)" ||
-        getComputedStyle(body).backgroundColor === "rgb(242, 246, 248)"
-      ) {
-        browse.style.backgroundColor = "#286276";
-        subc.style.backgroundColor = "#286276";
-        body.style.backgroundColor = "#070b0d";
-        body.style.color = "#edf1f2";
-        cards.forEach((card) => (card.style.backgroundColor = "#286276"));
-        modecolor.style.color = "white";
-        fooot.style.backgroundColor = "#286276";
-      } else {
-        subc.style.backgroundColor = "";
-        body.style.backgroundColor = "#f2f6f8";
-        body.style.color = "";
-        browse.style.backgroundColor = "";
-        cards.forEach((card) => (card.style.backgroundColor = ""));
-        modecolor.style.color = "";
-        fooot.style.backgroundColor = "#286276";
-      }
-    }
-  </script>
 </html>

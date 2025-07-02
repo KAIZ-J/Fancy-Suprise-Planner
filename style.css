@@ -27,11 +27,7 @@ a {
 .navbar i {
   width: 20px;
 }
-.logo img {
-  width: 60px;
-  height: 60px;
-  padding: 10px;
-}
+
 
 .nav-links {
   display: flex;
@@ -147,11 +143,13 @@ a {
   flex-direction: column;
   text-align: center;
 }
-.products .cards-product img {
-  width: 100px;
-  animation: rotation3d 5s infinite alternate;
-  transition: tranform 5s ease-in-out;
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: circle;
 }
+
 
 .products .card:hover {
   transform: translateY(-5px);
