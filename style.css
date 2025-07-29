@@ -19,7 +19,7 @@ a {
   align-items: center;
   position: fixed;
   width: 100%;
-  background-color:#c671da;
+  background-color:#e46242;
   z-index: 99999;
   top: 0;
   height: fit-content;
@@ -43,7 +43,7 @@ a {
 }
 
 .nav-links a:hover {
-  color: #7431de;
+  color: #e79f30;
 }
 
 .search-btn button {
@@ -76,11 +76,11 @@ a {
   width: 150px;
   animation: browse 1s infinite alternate;
   transition: transform 5s ease-in-out;
-  background-color: #d884ec;
+  background-color: #e79f30;
   cursor: pointer;
 }
 .hero button:hover {
-  background-color: #7431de;
+  background-color:#e46242 ;
   color: antiquewhite;
 }
 
@@ -89,7 +89,7 @@ a {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: linear-gradient(to bottom, #c671da, #fcf3fd);
+  background: linear-gradient(to bottom, #e46242, #fcf3fd);
   animation: fadeIn 2s forwards;
   height: 100vh;
 }
@@ -115,7 +115,7 @@ a {
 }
 .products .card {
   opacity: 0;
-  background-color: #C3B1E1;
+  background-color: #e46242;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   padding: 25px 20px;
@@ -156,13 +156,14 @@ ul {
   font-size: 1.4rem;
   margin-bottom: 10px;
   text-transform: uppercase;
-  color: #6a2cbc; /* darker purple */
+  color: #e79f30; 
 }
 .package-price {
   font-weight: 600;
   margin-bottom: 15px;
   font-size: 1.1rem;
-  color: #4b3b78;
+  color: wheat;
+  font-weight: bolder;
 }
 .products .card:hover {
  transform: scale(1.05);
@@ -195,20 +196,15 @@ ul {
   border: none;
   height: 30px;
   width: 150px;
-  background-color: #d884ec;
+  background-color: #e46242;
   cursor: pointer;
 }
 #tiktok:hover {
-  background-color: #7431de;
+  background-color: #e79f30;
   color: antiquewhite;
   
 }
 
-hr {
-  width: 0;
-  animation: line2 10s infinite alternate;
-  background-color: #0d7da2;
-}
 /* scrolling  */
 html {
   scroll-behavior: smooth;
@@ -226,15 +222,15 @@ body {
 .video{
   width: 280px;
   height: 300px;
-  opacity: 0;
-  border-radius: 20px;
+  transform: scale(0);
+  border-radius: 10px;
   object-fit: cover;
   cursor: pointer;
-  box-shadow:0px 0px 50px #7431de;
-  transition: opacity 800ms ease;
+  box-shadow:0px 0px 50px #e46242;
+  transition: transform 600ms ease;
 }
 .video.show{
-  opacity: 1;
+  transform: scale(1)
 }
 .Contacts {
   display: flex;
@@ -248,7 +244,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #c671da;
+  background-color: #e46242;
   position: sticky;
   width: 100%;
   bottom: 0;
