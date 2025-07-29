@@ -19,23 +19,13 @@ a {
   align-items: center;
   position: fixed;
   width: 100%;
-  background-color: #cd33e4;
+  background-color:#c671da;
   z-index: 99999;
   top: 0;
   height: fit-content;
 }
 .navbar i {
   width: 20px;
-}
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  opacity: 0.1; /* subtle */
 }
 
 
@@ -53,7 +43,7 @@ a {
 }
 
 .nav-links a:hover {
-  color: #e8c151;
+  color: #7431de;
 }
 
 .search-btn button {
@@ -66,9 +56,11 @@ a {
   width: 100px;
   cursor: pointer;
   margin-right: 20px;
+  transition: scale 600ms ease;
 }
 .search-btn button:hover {
   color: none;
+  scale: 1.08;
 }
 
 .note {
@@ -84,10 +76,11 @@ a {
   width: 150px;
   animation: browse 1s infinite alternate;
   transition: transform 5s ease-in-out;
-  background-color: #ee9e81;
+  background-color: #d884ec;
+  cursor: pointer;
 }
 .hero button:hover {
-  background-color: #e8c151;
+  background-color: #7431de;
   color: antiquewhite;
 }
 
@@ -96,8 +89,9 @@ a {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background: linear-gradient(to bottom, #cd33e4, #fcf3fd);
+  background: linear-gradient(to bottom, #c671da, #fcf3fd);
   animation: fadeIn 2s forwards;
+  height: 100vh;
 }
 
 .hero h1,
@@ -105,6 +99,7 @@ a {
   font-family: Pacifico;
   font-size: 1.8rem;
   color: #0d1112;
+  text-wrap: balance;
 }
 
 /* products section  */
@@ -119,6 +114,7 @@ a {
   text-align: center;
 }
 .products .card {
+  opacity: 0;
   background-color: #C3B1E1;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -127,10 +123,12 @@ a {
   text-align: center;
   font-family: 'Inter', sans-serif;
   color: #2c2c2c;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,opacity 800ms ease;
   cursor: pointer;
 }
-
+.products .card.show{
+  opacity: 1;
+}
 .products .cards-product {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -144,6 +142,7 @@ a {
   align-items: center;
   flex-direction: column;
   text-align: center;
+  text-wrap: balance;
 }
 ul {
   display: flex;
@@ -180,6 +179,7 @@ ul {
 .about p {
   max-width: 650px;
   text-align: center;
+  text-wrap: balance;
 }
 
 .about {
@@ -195,10 +195,11 @@ ul {
   border: none;
   height: 30px;
   width: 150px;
-  background-color: #ee9e81;
+  background-color: #d884ec;
+  cursor: pointer;
 }
 #tiktok:hover {
-  background-color: #e8c151;
+  background-color: #7431de;
   color: antiquewhite;
   
 }
@@ -218,8 +219,23 @@ body {
   max-width: 100%;
   overflow-x: hidden;
 }
-
-
+#vedio-container{
+  display: flex;
+  gap: 50px;
+}
+.video{
+  width: 280px;
+  height: 300px;
+  opacity: 0;
+  border-radius: 20px;
+  object-fit: cover;
+  cursor: pointer;
+  box-shadow:0px 0px 50px #7431de;
+  transition: opacity 800ms ease;
+}
+.video.show{
+  opacity: 1;
+}
 .Contacts {
   display: flex;
   align-items: center;
@@ -232,11 +248,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #cd33e4;
+  background-color: #c671da;
   position: sticky;
   width: 100%;
   bottom: 0;
-  color: white;
+  color:#0d1112;
 }
 
 
@@ -282,8 +298,13 @@ body {
     max-width: 450px;
     text-align: center;
     font-size: 0.8rem;
+    text-wrap: balance;
   }
-
+#vedio-container{
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+}
 
   .footer {
     font-size: 0.8rem;
