@@ -1,157 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="this website is made by fancy surprise planner"
-    />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fancy Surprise Planner</title>
 
-    <title>Fancy Suprise Planner</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Pacifico|Poppins|Montessart"
-    />
-    <link rel="stylesheet" href="style.css" />
-  
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo">
-        <dotlottie-player 
-    src="https://lottie.host/98508fcd-c646-43af-8924-52cc2755ae24/qqb9iAroZk.lottie" 
-    background="transparent" 
-    speed="1" 
-    style="width: 85px; height: 85px;" 
-    loop 
-    autoplay>
-  </dotlottie-player>
+<!-- Stylesheet -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+  <div class="logo">
+    <img src="/Gift_Shop_Logo_in_Pink_Playful_and_Cute_Style-removebg-preview (1).png" alt="Fancy Surprise Planner">
+  </div>
+  <nav class="nav-links" id="navLinks">
+    <a href="#hero">Home</a>
+    <a href="#packages">Packages</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+    <a href="#book" class="btn-nav">Book Now</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="animate-text">Every Surprise, A Masterpiece</h1>
+    <p class="animate-text delay">We craft unforgettable moments for your loved ones.</p>
+    <div class="hero-buttons animate-text delay2">
+      <a href="#packages"><button class="btn-primary">Explore Packages</button></a>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner"><button class="btn-tiktok"><i class="fab fa-tiktok"></i>  TikTok</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- Packages Section -->
+<section class="packages" id="packages">
+  <h2>Our Packages</h2>
+  <div class="packages-grid">
+    <div class="package-card gold">
+      <div class="package-header">
+        <h3>Golden</h3>
+        <p class="price">20,000 Br</p>
       </div>
-
-      <div class="nav-links">
-        <a href="#hero">Home</a>
-        <a href="#packages">Packages</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#about">About us</a>
-        <a href="#contact">Contact</a>
+      <div class="ul">
+        <div><i class="fas fa-check-circle"></i> Bedroom & corridor decor</div>
+        <div><i class="fas fa-check-circle"></i> 2KG cake</div>
+        <div><i class="fas fa-check-circle"></i> Flower bouquet & floor decor</div>
       </div>
-      <div class="search-btn">
-        <button>Book Now!</button>
-      </div>
-    </nav>
-    <div class="section hero" id="hero">
-      <div class="note">
-        <h1>
-          <br>
-          Surprise Moments, Beautifully Planned.
-        </h1>
-        <h5>
-          We design unforgettable memories for new moms, parents, and families —
-          straight from your heart to your home.
-        </h5>
-
-        <div id="action">
-          <a href="#packages"><button id="Browse">Explore Packages</button></a>
-          <a href="https://www.tiktok.com/@fancy_surprise_planner?_t=ZM-8xhHtPbX3lm&_r=1"><button id="Browse">Watch On tiktok</button></a>
-        </div>
-        <br /><br />
+      <div class="package-footer">
+        <span class="feature">Most Popular</span>
       </div>
     </div>
 
-    <div class="section products" id="packages">
-      <br /><br />
-      <br />
-      <h2>Aras Package</h2>
-      <div class="cards-product">
-        
-          <div class="card" id="gold">
-            <br />
-            <h3 class="package-title">GOLDEN PACKAGE</h3>
-            <hr />
-            <p class="package-price">20,000 Br</p>
-            <p>Bedroom and korider Decor</p>
-            <p>2KG normal torta cake</p>
-            <p>Flower(bouquet + floor decoration)</p>
-          </div>
-       
-
-        
-          <div class="card" id="premium">
-            <br />
-            <h3 class="package-title">PLATINIUM PACKAGE</h3>
-            <hr />
-            <p class="package-price">25,000 Br</p>
-            <p>Bedroom and korider Decor</p>
-            <p>Agober and light(rent for 2 weeks)</p>
-            <p>2KG Custom made cake</p>
-            <p>Flower(bouquet + floor decoration)</p>
-          </div>
-        
-
-       
-          <div class="card" id="silver">
-            <br />
-
-            <h3 class="package-title">SILVER PACKAGE</h3>
-            <hr />
-            <p class="package-price">15,000 Br</p>
-            <p>Bedroom and korider Decor</p>
-            <p>Floor decoration</p>
-          </div>
-        
+    <div class="package-card platinum">
+      <div class="package-header">
+        <h3>Platinum</h3>
+        <p class="price">25,000 Br</p>
+      </div>
+      <div class="ul">
+        <div><i class="fas fa-check-circle"></i> Full decor & lighting (2 weeks)</div>
+        <div><i class="fas fa-check-circle"></i> Custom 2KG cake</div>
+        <div><i class="fas fa-check-circle"></i> Flower bouquet & floor decor</div>
+        <div><i class="fas fa-check-circle"></i> Priority booking</div>
+      </div>
+      <div class="package-footer">
+        <span class="feature">Pro Package</span>
       </div>
     </div>
-    <div class="section gallery" id="gallery">
-      <br />
-      <br />
-      <br />
-      <h1>Gallery</h1>
-      <p>Watch our beautiful designs in action – 
-         <a href="https://www.tiktok.com/@fancy_surprise_planner?_t=ZM-8xhHtPbX3lm&_r=1"><button id="tiktok">Visit TikTok</button></a>
-      </p>
-      <div id="vedio-container">
-        <video src="platinuim.MP4" controls class="video" loop></video>
-        <video src="girl.MP4" controls class="video" loop></video>
+
+    <div class="package-card silver">
+      <div class="package-header">
+        <h3>Silver</h3>
+        <p class="price">15,000 Br</p>
       </div>
-      
-<br>
-     
+      <div class="ul">
+        <div><i class="fas fa-check-circle"></i> Bedroom & corridor decor</div>
+        <div><i class="fas fa-check-circle"></i> Floor decoration</div>
+      </div>
+      <div class="package-footer">
+        <span class="feature">Starter</span>
+      </div>
     </div>
-    <div class="section about" id="about">
-      <br /><br />
-      <br />
-      <br />
-      <h2>About Us🧡💛</h2>
+  </div>
+</section>
 
-      <p>
-        We’re a creative team based in Addis, creating emotional surprise
-        moments for families through custom home design and TikTok-famous
-        experiences.
-      </p>
-    </div>
-    <br />
-    <br />
-    <div class="section Contacts" id="contact">
-      <p>Contact Information</p>
-      <ul>
-        <li>📞 +251955820654</li>
-        <br />
-        <li>📞 +251966797036</li>
-        <br />
-        <li>📸 Telegram: @fancysurpriseplanner</li>
-      </ul>
-    </div>
+<!-- Gallery Section -->
+<section class="gallery" id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    <video src="platinuim.MP4" controls></video>
+    <video src="girl.MP4" controls></video>
+  </div>
+</section>
 
-    <div class="footer">Copyright &copy 2025; Made By fancysurpriseplanner</div>
-  <script src="script.js">
-   
-  </script>
-  </body>
+<!-- About Section -->
+<section class="about" id="about">
+  <h2>About Us</h2>
+  <p>We are a creative team in Addis, designing heartfelt surprise experiences. Creativity, care, and attention to detail are our signature.</p>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose" id="why-choose">
+  <h2>Why Choose Us</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <i class="fas fa-heart"></i>
+      <h3>Heartfelt Designs</h3>
+      <p>Every surprise is made with love and care.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-star"></i>
+      <h3>Exclusive Packages</h3>
+      <p>Customized plans for every celebration.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-clock"></i>
+      <h3>On Time</h3>
+      <p>We deliver every event flawlessly and timely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+  <h2>What Our Clients Say</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <p>"Absolutely loved the setup! My partner was blown away."</p>
+      <h4>- Sarah M.</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>"Professional, creative, and on time. Highly recommend!"</p>
+      <h4>- Daniel T.</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="comments" id="contact">
+  <h2>Contact Us</h2>
+  <form id="commentForm">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Fancy Surprise Planner</p>
+</footer>
+
+<!-- Scripts -->
+<script src="script.js"></script>
+</body>
 </html>
