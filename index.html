@@ -5,16 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fancy Surprise Planner</title>
 
-<!-- Fonts & Icons -->
+
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Stylesheet -->
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Navbar -->
+
 <header class="navbar">
   <div class="logo">
     <img src="/Gift_Shop_Logo_in_Pink_Playful_and_Cute_Style-removebg-preview (1).png" alt="Fancy Surprise Planner">
@@ -26,7 +25,7 @@
     <a href="#about">About</a>
     <a href="#testimonials">Testimonials</a>
     <a href="#contact">Contact</a>
-    <a href="#book" class="btn-nav">Book Now</a>
+    <button type="button" class="btn-nav">Book Now</button>
   </nav>
   <div class="nav-actions">
     <button class="hamburger" id="hamburger">
@@ -37,7 +36,7 @@
   </div>
 </header>
 
-<!-- Hero Section -->
+
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -50,7 +49,6 @@
   </div>
 </section>
 
-<!-- Packages Section -->
 <section class="packages" id="packages">
   <h2>Our Packages</h2>
   <div class="packages-grid">
@@ -63,9 +61,6 @@
         <div><i class="fas fa-check-circle"></i> Bedroom & corridor decor</div>
         <div><i class="fas fa-check-circle"></i> 2KG cake</div>
         <div><i class="fas fa-check-circle"></i> Flower bouquet & floor decor</div>
-      </div>
-      <div class="package-footer">
-        <span class="feature">Most Popular</span>
       </div>
     </div>
 
@@ -81,7 +76,7 @@
         <div><i class="fas fa-check-circle"></i> Priority booking</div>
       </div>
       <div class="package-footer">
-        <span class="feature">Pro Package</span>
+        <span class="feature"><i class="fa-solid fa-star"></i> Most Popular</span>
       </div>
     </div>
 
@@ -94,29 +89,35 @@
         <div><i class="fas fa-check-circle"></i> Bedroom & corridor decor</div>
         <div><i class="fas fa-check-circle"></i> Floor decoration</div>
       </div>
-      <div class="package-footer">
-        <span class="feature">Starter</span>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- Gallery Section -->
+
 <section class="gallery" id="gallery">
   <h2>Gallery</h2>
   <div class="gallery-grid">
-    <video src="platinuim.MP4" controls></video>
-    <video src="girl.MP4" controls></video>
+    <video src="platinuim.MP4" controls class="gallery-video"></video>
+    <video src="girl.MP4" controls class="gallery-video"></video>
   </div>
 </section>
 
-<!-- About Section -->
+<section id="follow-us-section">
+    <h2>Follow us on Social Media</h2>
+     <div>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner"><i class="fa-brands fa-tiktok"></i></a>
+         <a href="https://t.me/fancy_surprise_planner"><i class="fa-brands fa-telegram"></i></a> 
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-solid fa-envelope"></i></a> 
+    </div>
+  </section>
+
 <section class="about" id="about">
   <h2>About Us</h2>
-  <p>We are a creative team in Addis, designing heartfelt surprise experiences. Creativity, care, and attention to detail are our signature.</p>
+  <p>We are Fancy Surprise planners,a creative team in Addis, designing heartfelt surprise experiences. Creativity, care, and attention to detail are our signature.</p>
 </section>
 
-<!-- Why Choose Us Section -->
+
 <section class="why-choose" id="why-choose">
   <h2>Why Choose Us</h2>
   <div class="features-grid">
@@ -138,22 +139,22 @@
   </div>
 </section>
 
-<!-- Testimonials Section -->
+
 <section class="testimonials" id="testimonials">
   <h2>What Our Clients Say</h2>
   <div class="testimonials-grid">
     <div class="testimonial-card">
       <p>"Absolutely loved the setup! My partner was blown away."</p>
-      <h4>- Sarah M.</h4>
+      <h4>- Seble M.</h4>
     </div>
     <div class="testimonial-card">
       <p>"Professional, creative, and on time. Highly recommend!"</p>
-      <h4>- Daniel T.</h4>
+      <h4>- Abraham T.</h4>
     </div>
   </div>
 </section>
 
-<!-- Contact Section -->
+
 <section class="comments" id="contact">
   <h2>Contact Us</h2>
   <form id="commentForm">
@@ -164,12 +165,12 @@
   </form>
 </section>
 
-<!-- Footer -->
+
 <footer>
   <p>&copy; 2025 Fancy Surprise Planner</p>
 </footer>
 
-<!-- Scripts -->
+
 <script src="script.js"></script>
 </body>
 </html>
