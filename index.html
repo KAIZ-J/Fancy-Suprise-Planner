@@ -43,7 +43,9 @@ tailwind.config = {
 html {
   scroll-behavior: smooth;
 }
-
+*{
+  transition: background-color .5s ease,color .5s ease;  
+}
 
 
 </style>
@@ -102,7 +104,22 @@ html {
     <a href="#gallery" class="hover:text-primary transition-colors">Gallery</a>
     <a href="#about" class="hover:text-primary transition-colors">About</a>
     <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
-    <a href="#book" class="mt-4 rounded-full bg-primary text-white text-center py-3 font-semibold">Book Now</a>
+    <a href="#tel:+251955820654" class="mt-4 rounded-full bg-primary text-white text-center py-3 font-semibold">Book Now</a>
+     <div class="flex items-center gap-3">
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" class="w-12 h-12 flex items-center justify-center  p-3  transition-all duration-500 transform hover:-translate-y-1">
+        <i class="fa-brands fa-tiktok text-xl hover:text-primary transition-colors duration-500"></i>
+      </a>
+
+      <!-- Instagram -->
+      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3  transition-all duration-500 transform hover:-translate-y-1">
+        <i class="fa-brands fa-instagram text-xl hover:text-primary transition-colors duration-500"></i>
+      </a>
+      <!-- Telegram -->
+      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 transition-all duration-500 transform hover:-translate-y-1">
+        <i class="fa-brands fa-telegram text-xl hover:text-primary transition-colors duration-500"></i>
+      </a>
+    </div>
     </nav>
   </div>
 </header>
@@ -128,7 +145,7 @@ mobileMenu.addEventListener('click', (e) => {
     document.body.style.overflow = "auto";
   }
 });
-
+ document.documentElement.classList.toggle('dark');
 function toggleTheme() {
   document.documentElement.classList.toggle('dark');
 }
@@ -159,11 +176,11 @@ function toggleTheme() {
 
     <!-- Buttons (compact, don't stretch) -->
     <div class="fade-stagger mt-6 flex justify-center gap-4 flex-wrap" style="--delay: 0.44s">
-      <a href="#packages" class="rounded-full bg-primary text-white px-6 py-2 text-sm sm:text-base font-semibold shadow-md hover:opacity-95 transition-opacity">
+      <a href="#packages" class="rounded-full bg-primary text-white px-6 py-2 text-sm sm:text-base font-semibold shadow-md hover:-translate-y-1 transition-all duration-500">
         Explore Packages
       </a>
-      <a href="https://www.tiktok.com" target="_blank" class="rounded-full border border-primary text-primary px-6 py-2 text-sm sm:text-base font-semibold hover:text-white transition-colors">
-        TikTok <span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" onmouseover="moveabit(this)" onmouseleave="backabit(this)" target="_blank" class="rounded-full border border-primary text-primary px-6 py-2 text-sm sm:text-base font-semibold  transition-all duration-500">
+        TikTok <span class="ml-1"><i class="fa-solid fa-arrow-right transition-all"></i></span>
       </a>
     </div>
   </div>
@@ -238,24 +255,28 @@ function toggleTheme() {
 
   staggerEls.forEach(el => io.observe(el));
 })();
+function moveabit(elem){
+elem.querySelector("i").style.transform="translateX(3px)"
+}
+function backabit(elem){
+elem.querySelector("i").style.transform="translateX(0px)"
+}
 </script>
 
-
-<!-- Packages -->
 <!-- Packages -->
 <section id="packages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
   <h2 class="font-heading text-3xl sm:text-4xl font-bold mb-14 fade-stagger" style="--delay: 0s">Packages</h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
     <!-- Silver -->
-    <div class="fade-stagger flex flex-col gap-6 border border-primary/20 dark:border-primary/30 rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm" style="--delay: 0.1s">
+    <div class="fade-stagger flex flex-col gap-6 border border-primary/20  rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm tr transition-all duration-500" style="--delay: 0.1s">
       <h3 class="font-heading text-2xl font-bold text-primary text-center">Silver Package</h3>
       <p class="text-3xl font-bold text-center mt-2">15,000 Br</p>
       <ul class="space-y-2 text-black/80 dark:text-white/80 text-left mx-auto w-fit">
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Bedroom & corridor decor</li>
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Floor decoration</li>
       </ul>
-      <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a>
+      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a> -->
     </div>
 
     <!-- Platinum -->
@@ -269,11 +290,11 @@ function toggleTheme() {
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Flower bouquet & floor decor</li>
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Priority booking</li>
       </ul>
-      <a href="#" class="text-center mt-auto rounded-full bg-primary text-white py-2 px-6 font-semibold hover:opacity-90 transition-opacity">Choose</a>
+      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary text-white py-2 px-6 font-semibold hover:opacity-90 transition-opacity">Choose</a> -->
     </div>
 
     <!-- Golden -->
-    <div class="fade-stagger flex flex-col gap-6 border border-primary/20 dark:border-primary/30 rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm" style="--delay: 0.3s">
+    <div class="fade-stagger flex flex-col gap-6 border border-primary/20 transition-all duration-500 rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm" style="--delay: 0.3s">
       <h3 class="font-heading text-2xl font-bold text-primary text-center">Golden Package</h3>
       <p class="text-3xl font-bold text-center mt-2">20,000 Br</p>
       <ul class="space-y-2 text-black/80 dark:text-white/80 text-left mx-auto w-fit">
@@ -281,7 +302,7 @@ function toggleTheme() {
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>2KG cake</li>
         <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Flower bouquet & floor decor</li>
       </ul>
-      <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a>
+      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a> -->
     </div>
   </div>
 </section>
@@ -318,12 +339,8 @@ function toggleTheme() {
 </script>
 
 </main>
-<!-- Why Choose Us -->
-
-
-<!-- Gallery-->
 <!-- Gallery -->
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+<div id="gallery" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
   <h2 class="font-heading text-3xl font-bold text-center mb-12 fade-stagger" style="--delay: 0s">Gallery</h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.1s">
@@ -377,7 +394,7 @@ function toggleTheme() {
 })();
 </script> 
 <!-- About & Why Choose Us -->
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+<div id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
   <div class="text-center fade-stagger" style="--delay:0s">
     <h2 class="font-heading text-3xl font-bold mb-4">About &amp; Why Choose Us</h2>
     <p class="max-w-3xl mx-auto text-black/80 dark:text-white/80 leading-relaxed">
@@ -405,8 +422,8 @@ function toggleTheme() {
       <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Stress-free execution from start to finish</p>
     </div>
     <div class="flex flex-col items-center gap-3 fade-stagger" style="--delay:0.4s">
-      <span class="material-symbols-outlined text-4xl text-primary icon-animate">groups</span>
-      <h3 class="text-lg font-semibold">Dedicated Team</h3>
+      <span class="material-symbols-outlined text-4xl text-primary icon-animate" >groups</span>
+      <h3 class="text-lg font-semibold">Dedicated Team</h3> 
       <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Passionate professionals committed to excellence</p>
     </div>
   </div>
@@ -425,8 +442,8 @@ function toggleTheme() {
 }
 
 .icon-animate {
-  transform: scale(0.8);
-  transition: transform 0.6s ease;
+  transform: scale(0);
+  transition:  0.8s ease;
 }
 .fade-stagger.visible .icon-animate {
   transform: scale(1);
@@ -447,6 +464,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".fade-stagger").forEach(el => observer.observe(el));
 });
+function fill(elem){
+ elem.classList.toggle("text-primary") 
+}
 </script>
 
 <!-- Testimonials -->
@@ -603,7 +623,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6 text-center text-black/70 dark:text-white/70">
     <div class="flex items-center gap-6">
       <!-- TikTok -->
-      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center  p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" class="w-12 h-12 flex items-center justify-center  p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
         <i class="fa-brands fa-tiktok text-xl hover:text-primary transition-colors duration-500"></i>
       </a>
 
@@ -611,7 +631,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
         <i class="fa-brands fa-instagram text-xl hover:text-primary transition-colors duration-500"></i>
       </a>
-
       <!-- Telegram -->
       <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
         <i class="fa-brands fa-telegram text-xl hover:text-primary transition-colors duration-500"></i>
