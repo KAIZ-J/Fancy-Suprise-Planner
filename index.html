@@ -1,654 +1,819 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Pacifico:wght@400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+<title>Fancy Surprise Planner — Bespoke Surprises in Addis Ababa</title>
+<meta name="description" content="Fancy Surprise Planner designs elegant, personalized surprise experiences in Addis Ababa — proposals, birthdays, new-mom celebrations and more, handled end to end.">
+
+<!-- Theme init: runs before paint to avoid flash of wrong theme -->
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('theme');
+    var isDark = saved ? saved === 'dark' : true; // brand defaults to the dark, plum-toned theme
+    if(isDark) document.documentElement.classList.add('dark');
+  }catch(e){ document.documentElement.classList.add('dark'); }
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
- <script src='https://kit.fontawesome.com/9603c04a31.js' crossorigin='anonymous'></script>
-<title>Fancy Surprise Planner</title>
+<script src="https://kit.fontawesome.com/9603c04a31.js" crossorigin="anonymous"></script>
+
 <script>
 tailwind.config = {
   darkMode: "class",
   theme: {
     extend: {
       colors: {
-        primary: "#f7bad9",
+         primary: "#f7bad9",
+        "primary-dark": "#d9749f",
+        gold: "#cd9b4f",
         "background-light": "#f8f6f7",
         "background-dark": "#211119",
+        "surface-dark": "#2a1a25",
+        ink: "#2a1420",
       },
       fontFamily: {
-        display: ["Inter"],
-        heading: ["Pacifico"],
+        sans: ["Inter", "sans-serif"],
+        serif: ["Fraunces", "serif"],
+        script: ["Pacifico", "cursive"],
       },
       borderRadius: {
         DEFAULT: "0.5rem",
         lg: "1rem",
         xl: "1.5rem",
+        "2xl": "2rem",
         full: "9999px",
+      },
+      boxShadow: {
+        soft: "0 8px 30px -12px rgba(42, 20, 32, 0.18)",
+        lift: "0 20px 45px -15px rgba(42, 20, 32, 0.35)",
       },
     },
   },
 };
 </script>
+
 <style>
-#mobile-menu {
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-}
-#mobile-menu.open {
-  transform: translateX(0);
-}
-html {
-  scroll-behavior: smooth;
-}
-*{
-  transition: background-color .5s ease,color .5s ease;  
-}
-
-
-</style>
-</head>
-<body class="font-display bg-background-light dark:bg-background-dark text-black dark:text-white">
-<div class="flex flex-col min-h-screen">
-
-<header class="fixed top-0 left-0 w-full z-50 bg-background-light dark:bg-background-dark border-b border-primary/20 dark:border-primary/30">
-  <div class="max-w-7xl mx-auto w-full flex items-center justify-between px-6 md:px-10 py-4 relative">
-    <!-- Logo + Text --> 
-    <div class="flex items-center gap-3 flex-shrink-0">
-      <i class="fa-solid fa-gift text-primary" style="scale: 1.4;"></i>
-      <h1 class="font-heading text-lg sm:text-xl font-bold">Fancy Surprise Planner</h1>
-    </div>
-
-    <!-- Desktop Nav -->
-    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium flex-1 justify-center">
-      <a href="#hero" class="group relative px-1 py-1 hover:text-primary transition-colors">
-        Home <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-      </a>
-      <a href="#packages" class="group relative px-1 py-1 hover:text-primary transition-colors">
-        Packages <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-      </a>
-      <a href="#gallery" class="group relative px-1 py-1 hover:text-primary transition-colors">
-        Gallery <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-      </a>
-      <a href="#about" class="group relative px-1 py-1 hover:text-primary transition-colors">
-        About <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-      </a>
-      <a href="#contact" class="group relative px-1 py-1 hover:text-primary transition-colors">
-        Contact <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-      </a>
-    </nav>
-
-    <!-- Actions -->
-    <div class="flex items-center gap-3 flex-shrink-0">
-      <button class="hidden sm:inline-flex rounded-full bg-primary text-white px-6 py-2 font-bold shadow hover:opacity-90 transition">Book Now</button>
-      <button class="flex items-center justify-center rounded-full h-10 w-10 bg-background-light dark:bg-background-dark border border-primary/20 dark:border-primary/30 text-black dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors" onclick="toggleTheme()">
-        <span class="material-symbols-outlined dark:hidden">light_mode</span>
-        <span class="material-symbols-outlined hidden dark:inline">dark_mode</span>
-      </button>
-      <button class="lg:hidden flex items-center justify-center rounded-full h-10 w-10 border border-primary/20 dark:border-primary/30 text-black dark:text-white" id="hamburger-button">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" style="transform: translateX(100%); transition: transform 0.3s ease-in-out;" class="fixed top-0 right-0 h-full w-64 bg-background-light dark:bg-background-dark shadow-lg p-6 z-50">
-    <button class="absolute top-4 right-4 text-black dark:text-white" id="close-button">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-    <nav class="flex flex-col gap-6 mt-12 text-lg font-medium">
-      <a href="#hero" class="hover:text-primary transition-colors">Home</a>
-    <a href="#packages" class="hover:text-primary transition-colors">Packages</a>
-    <a href="#gallery" class="hover:text-primary transition-colors">Gallery</a>
-    <a href="#about" class="hover:text-primary transition-colors">About</a>
-    <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
-    <a href="tel:+251955820654" class="mt-4 rounded-full bg-primary text-white text-center py-3 font-semibold">Book Now</a>
-     <div class="flex items-center gap-3">
-      <!-- TikTok -->
-      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" class="w-12 h-12 flex items-center justify-center  p-3  transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-tiktok text-xl hover:text-primary transition-colors duration-500"></i>
-      </a>
-
-      <!-- Instagram -->
-      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3  transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-instagram text-xl hover:text-primary transition-colors duration-500"></i>
-      </a>
-      <!-- Telegram -->
-      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-telegram text-xl hover:text-primary transition-colors duration-500"></i>
-      </a>
-    </div>
-    </nav>
-  </div>
-</header>
-
-<script>
-const hamburgerButton = document.getElementById('hamburger-button');
-const closeButton = document.getElementById('close-button');
-const mobileMenu = document.getElementById('mobile-menu');
-
-hamburgerButton.addEventListener('click', () => {
-  mobileMenu.style.transform = "translateX(0)";
-  document.body.style.overflow = "hidden";
-});
-
-closeButton.addEventListener('click', () => {
-  mobileMenu.style.transform = "translateX(100%)";
-  document.body.style.overflow = "auto";
-});
-
-mobileMenu.addEventListener('click', (e) => {
-  if (e.target === mobileMenu) {
-    mobileMenu.style.transform = "translateX(100%)";
-    document.body.style.overflow = "auto";
+  :root{ color-scheme: light; }
+  html.dark{ color-scheme: dark; }
+  html{ scroll-behavior: smooth; }
+  body{
+    -webkit-font-smoothing: antialiased;
   }
-});
- document.documentElement.classList.toggle('dark');
-function toggleTheme() {
-  document.documentElement.classList.toggle('dark');
-}
-</script>
+  ::selection{ background: #f2a9cc; color: #2a1420; }
 
-
- 
-<!-- Luxury Hero — Step-by-step stagger + glow -->
-<section id="hero" style="padding-top: 80px;" class="relative flex items-center justify-center h-screen bg-gradient-to-br from-pink-50 to-pink-100 dark:from-[#2b1b27] dark:to-[#3a212f] px-6 sm:px-8 lg:px-10 text-center overflow-hidden">
-  <!-- soft glow / blur behind content -->
-  <div class="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center">
-    <div id="hero-glow" class="w-[520px] h-[520px] rounded-full blur-3xl opacity-30 bg-primary/20"></div>
-  </div>
-
-  <div class="max-w-2xl mx-auto flex flex-col gap-4 px-4">
-    <!-- NOTE: DOM order keeps the slogan visually above the heading,
-         but delays below control the animation order so the heading appears first. -->
- 
-    <!-- Main heading (animates first) -->
-    <h2 class="fade-stagger reveal-hero font-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-black dark:text-white" style="--delay: 0s">
-      Every Surprise, <span class="text-primary">A Masterpiece</span>
-    </h2>
-
-    <!-- Paragraph -->
-    <p class="fade-stagger text-base sm:text-lg md:text-xl text-black/80 dark:text-white/80" style="--delay: 0.28s">
-      We craft beautiful, personalized moments — elegant setups, thoughtful details, and stress-free planning for an unforgettable experience.
-    </p>
-
-    <!-- Buttons (compact, don't stretch) -->
-    <div class="fade-stagger mt-6 flex justify-center gap-4 flex-wrap" style="--delay: 0.44s">
-      <a href="#packages" class="rounded-full bg-primary text-white px-6 py-2 text-sm sm:text-base font-semibold shadow-md hover:-translate-y-1 transition-all duration-500">
-        Explore Packages
-      </a>
-      <a href="https://www.tiktok.com/@fancy_surprise_planner" onmouseover="moveabit(this)" onmouseleave="backabit(this)" target="_blank" class="rounded-full border border-primary text-primary px-6 py-2 text-sm sm:text-base font-semibold  transition-all duration-500">
-        TikTok <span class="ml-1"><i class="fa-solid fa-arrow-right transition-all"></i></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<style>
-/* Fade + slight upward motion + subtle scale */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px) scale(.996); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Base (hidden) state for staggered elements */
-.fade-stagger {
-  opacity: 0;
-  transform: translateY(24px) scale(.996);
-}
-
-/* When visible, play animation; per-element delay via --delay */
-.fade-stagger.visible {
-  animation: fadeUp 700ms cubic-bezier(.22,.9,.35,1) both;
-  animation-delay: var(--delay, 0s);
-}
-
-/* Glow behaviour: subtle by default, dims after heading animation for focus */
-#hero-glow {
-  transition: opacity 700ms ease, transform 700ms ease;
-  opacity: 0.30;
-  transform: scale(1.06);
-}
-#hero-glow.glow-done {
-  opacity: 0.07;
-  transform: scale(1);
-}
-
-/* Accessibility: prefer reduced motion -> disable animations */
-@media (prefers-reduced-motion: reduce) {
-  .fade-stagger { opacity: 1 !important; transform: none !important; animation: none !important; }
-  #hero-glow { opacity: 0.08 !important; transform: none !important; }
-}
-</style>
-
-<script>
-// Staggered reveal using Intersection Observer. Animates once.
-(function () {
-  const staggerEls = document.querySelectorAll('.fade-stagger');
-  const glow = document.getElementById('hero-glow');
-
-  // Respect reduced motion
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    staggerEls.forEach(el => el.classList.add('visible'));
-    if (glow) glow.classList.add('glow-done');
-    return;
-  }
-
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      el.classList.add('visible');
-
-      // If this is the main heading, schedule the glow to dim slightly
-      if (el.classList.contains('reveal-hero') && glow) {
-        // Wait for heading animation to play a little, then dim glow
-        const delayMs = 750; // matches animation duration roughly
-        setTimeout(() => glow.classList.add('glow-done'), delayMs);
-      }
-
-      obs.unobserve(el); // reveal once
-    });
-  }, { threshold: 0.18 });
-
-  staggerEls.forEach(el => io.observe(el));
-})();
-function moveabit(elem){
-elem.querySelector("i").style.transform="translateX(3px)"
-}
-function backabit(elem){
-elem.querySelector("i").style.transform="translateX(0px)"
-}
-</script>
-
-<!-- Packages -->
-<section id="packages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-  <h2 class="font-heading text-3xl sm:text-4xl font-bold mb-14 fade-stagger" style="--delay: 0s">Packages</h2>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center">
-    <!-- Silver -->
-    <div class="fade-stagger flex flex-col gap-6 border border-primary/20  rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm tr transition-all duration-500" style="--delay: 0.1s">
-      <h3 class="font-heading text-2xl font-bold text-primary text-center">Silver Package</h3>
-      <p class="text-3xl font-bold text-center mt-2">15,000 Br</p>
-      <ul class="space-y-2 text-black/80 dark:text-white/80 text-left mx-auto w-fit">
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Bedroom & corridor decor</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Floor decoration</li>
-      </ul>
-      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a> -->
-    </div>
-
-    <!-- Platinum -->
-    <div class="fade-stagger flex flex-col gap-6 border-2 border-primary rounded-2xl p-8 relative shadow-md bg-white/70 dark:bg-white/10 backdrop-blur-sm" style="--delay: 0.2s">
-      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white px-3 py-1 rounded-full text-sm font-bold shadow-md">Most Popular</div>
-      <h3 class="font-heading text-2xl font-bold text-primary text-center">Platinum Package</h3>
-      <p class="text-3xl font-bold text-center mt-2">25,000 Br</p>
-      <ul class="space-y-2 text-black/80 dark:text-white/80 text-left mx-auto w-fit">
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Full decor & lighting (2 weeks)</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Custom 2KG cake</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Flower bouquet & floor decor</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Priority booking</li>
-      </ul>
-      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary text-white py-2 px-6 font-semibold hover:opacity-90 transition-opacity">Choose</a> -->
-    </div>
-
-    <!-- Golden -->
-    <div class="fade-stagger flex flex-col gap-6 border border-primary/20 transition-all duration-500 rounded-2xl p-8 hover:border-primary transition-colors shadow-sm hover:shadow-md bg-white/60 dark:bg-white/5 backdrop-blur-sm" style="--delay: 0.3s">
-      <h3 class="font-heading text-2xl font-bold text-primary text-center">Golden Package</h3>
-      <p class="text-3xl font-bold text-center mt-2">20,000 Br</p>
-      <ul class="space-y-2 text-black/80 dark:text-white/80 text-left mx-auto w-fit">
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Bedroom & corridor decor</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>2KG cake</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">check_circle</span>Flower bouquet & floor decor</li>
-      </ul>
-      <!-- <a href="#" class="text-center mt-auto rounded-full bg-primary/20 text-primary py-2 px-6 font-semibold hover:bg-primary hover:text-white transition-colors">Choose</a> -->
-    </div>
-  </div>
-</section>
-
-<style>
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.fade-stagger {
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-}
-.fade-stagger.visible {
-  animation: fadeUp 0.8s cubic-bezier(.22,.9,.35,1) both;
-  animation-delay: var(--delay, 0s);
-}
-</style>
-
-<script>
-// Fade + stagger scroll animations for packages
-(function () {
-  const els = document.querySelectorAll('.fade-stagger');
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  els.forEach(el => io.observe(el));
-})();
-</script>
-
-</main>
-<!-- Gallery -->
-<div id="gallery" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-  <h2 class="font-heading text-3xl font-bold text-center mb-12 fade-stagger" style="--delay: 0s">Gallery</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.1s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGSyG042qt7f26yrstibSi1kD4RiEB4sOErGY8AWgQaap9Einky1CXQW_bm7r4QHyhEbOV8wtGL0OsXY2TP-GS-RLFLh5IEs0QRq0uXpGudBxG34k62ffIJYOJB6IX5p3j7diYRW9Jb_Y9uQC1aKH3GvByamj-XYbFmAD16yY_8tDjb9HBf4XBNU0ufoW4Yec2ooWyKbQIPEZyMa9uwjEIvILEBeHKoOLk6h0DeAaehyCbm2VewfRKxgyMBySYlHEV314DEHgxx0E" class="w-full h-full object-cover">
-    </div>
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.2s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR5PoLTIg5XLPaiHw_kB36V68DDY0otmLPo5XBNwDEP8YoKBdUrNzqI2HeEgDkLJ8fnBFRIqdppLxTwwqXtYwI-UAM0PJ0iKrDdgJrGduQIaI56D17Rmh1g-RMbtAIpDrUfhoZhnh6FhOauB1kgUBXyZkQSMeCnOj0b952itKNIprdNZYQee5mgONx24_TFsC4Fq8eJayu6702h3Lww2_BXTB6xUyyTBv8oLHXM5sM8VpYUj443qyfpomOIWzJm39LDbi2V7jBOK0" class="w-full h-full object-cover">
-    </div>
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.3s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrlVNBObPO9mu9U9A4GVDojve2o0Pl6KWlmtHCykP3jva-beGi9S3EGvh_HvlBnM46GFp2kRpvt33Hx_punHlr1qg21Nn8cdmEW_-qsPFWZZrQmdA66QflDlvs7h1G5jSvQeG_xw6wd6kA05pG_5cXjWd0_ysAMosas2my9OwHVzeyjs8X9_NXdGSZQjOZpSElMoOu1-yp16trrvJpMmxdnMoO0pc2bR6fnyF5-AlwcvNtxOo0V32BhletT4tYvsSN0KJqpaWvR6w" class="w-full h-full object-cover">
-    </div>
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.4s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjFNSYSnIQ_9SIHbZB-Q3yFAsobxf1vD1zn7mTjQURFwNJWjM091qCstKaFqkMSRLWE581QiqMOh0D7XfR3l2AAgh-i8G7xxgocoUc0uIHCtHuUe1m9SIG4J2Z7TC0qGbHeOQFl7LFNl0XDEMHtruvG5TtMswPplZhSDQuJ8_c8EZhbTVH3aN5LfgAQtdKgb_IeOVbTXs2-HbeirGmrll077a0vi6Vx5HzSepwjr_BQuitbwKzt6vJ6l_M0hHjwAn-rSf5fws_6Cs" class="w-full h-full object-cover">
-    </div>
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.5s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1iIZMtacA952xx0jZ_KiOSw-_70T5EBPMs-q7Re5JeblLZJTGbt1jQHpKSM36Ri4pqP_ykWE9z7ICsA-216sB-amzJxtH0y4ncYOI19do_I1mvyHVG3noAZdJA4X1fk0XOCZb3x2AYBUi2J69Nxs1SJfM9jcu8wASkaiTNHe-h6md5c9Xn_OV_DheWTiI0B3456xWPdgWzgnXxABx11t1yjLTWAcwyiBUXujyx8N1HK3Jnkzq9bIHVjsnmT_Z8Nw6q6r3fR6fZ7g" class="w-full h-full object-cover">
-    </div>
-    <div class="overflow-hidden rounded-lg fade-stagger" style="--delay:0.6s">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxnL60lk6cQR23vBgo7SVVdfWOkbXeNrFUYE5uBWZCSDs6J5gFREBvkNEuxoArl4hhXJj0BICZbTe8qZSI0C9Y5DVvkb0G1cc6Bf_5Gl0lwBax8z0tH59H_85pgZ_YPB0RWA7NK6BwyYGGONJuV-O5nDoWRe5_yPSF04odXa33J7HVaBL1mDMPICXMla6tMddo8O7W1I7F1AXU0vqKdoC_h-E0pZt64qOdPrPdj8VtoPp0t7Nl6hhhKrR1d8AsoGzH1ry0pxW9Ynk" class="w-full h-full object-cover">
-    </div>
-  </div>
-</div>
-<style>
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.fade-stagger {
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-}
-.fade-stagger.visible {
-  animation: fadeUp 0.8s cubic-bezier(.22,.9,.35,1) both;
-  animation-delay: var(--delay, 0s);
-}
-</style>
-
-<script>
-// Scroll fade + stagger for Gallery (same as Packages)
-(function () {
-  const els = document.querySelectorAll('.fade-stagger');
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  els.forEach(el => io.observe(el));
-})();
-</script> 
-<!-- About & Why Choose Us -->
-<div id="about" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-  <div class="text-center fade-stagger" style="--delay:0s">
-    <h2 class="font-heading text-3xl font-bold mb-4">About &amp; Why Choose Us</h2>
-    <p class="max-w-3xl mx-auto text-black/80 dark:text-white/80 leading-relaxed">
-      At Fancy Surprise Planner, we’re all about creating moments that make people feel truly special. 
-      Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences — 
-      especially for new moms and other special occasions. From concept to final setup, we handle everything 
-      with care and creativity, ensuring every surprise is heartfelt, memorable, and full of joy.
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-16 text-center">
-    <div class="flex flex-col items-center gap-3 fade-stagger" style="--delay:0.1s">
-      <span class="material-symbols-outlined text-4xl text-primary icon-animate">auto_awesome</span>
-      <h3 class="text-lg font-semibold">Creative Designs</h3>
-      <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Unique and innovative surprise concepts</p>
-    </div>
-    <div class="flex flex-col items-center gap-3 fade-stagger" style="--delay:0.2s">
-      <span class="material-symbols-outlined text-4xl text-primary icon-animate">favorite</span>
-      <h3 class="text-lg font-semibold">Personalized Touch</h3>
-      <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Tailored to your preferences and story</p>
-    </div>
-    <div class="flex flex-col items-center gap-3 fade-stagger" style="--delay:0.3s">
-      <span class="material-symbols-outlined text-4xl text-primary icon-animate">event_available</span>
-      <h3 class="text-lg font-semibold">Seamless Planning</h3>
-      <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Stress-free execution from start to finish</p>
-    </div>
-    <div class="flex flex-col items-center gap-3 fade-stagger" style="--delay:0.4s">
-      <span class="material-symbols-outlined text-4xl text-primary icon-animate" >groups</span>
-      <h3 class="text-lg font-semibold">Dedicated Team</h3> 
-      <p class="text-sm text-black/60 dark:text-white/60 max-w-[250px]">Passionate professionals committed to excellence</p>
-    </div>
-  </div>
-</div>
-
-<!-- Fade-up + Icon animation -->
-<style>
-.fade-stagger {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.fade-stagger.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.icon-animate {
-  transform: scale(0);
-  transition:  0.8s ease;
-}
-.fade-stagger.visible .icon-animate {
-  transform: scale(1);
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        setTimeout(() => element.classList.add("visible"), parseFloat(getComputedStyle(element).getPropertyValue("--delay")) * 1000);
-        observer.unobserve(element);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll(".fade-stagger").forEach(el => observer.observe(el));
-});
-function fill(elem){
- elem.classList.toggle("text-primary") 
-}
-</script>
-
-<!-- Testimonials -->
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-  <h2 class="font-heading text-3xl font-bold text-center mb-12 fade-stagger" style="--delay:0s">Testimonials</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    
-    <!-- Selamawit -->
-    <div class="flex flex-col gap-4 bg-background-light dark:bg-background-dark p-6 rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-lg transition-all fade-stagger" style="--delay:0.1s">
-      <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvcj-Gwc0Q4kkMBdjtMivcJWtI71MRsyQb1TvDf9aMjfOaVh5QUT2-YGVfg1Tzi_wysEYZgGMkeW-ygu4QlU366rnaik2gv-Ran_fcOMvKfjIB_uIUgz3waLZZEzcqiDR9V7Svwpu2ugFKHSmahutTdAowOfdxRtCmrLcUmcfBSaMWyBr8p6RooMkJzncBySpIArWiAP2Aa1zh3rnyndMG3RpAUvjm7liqd9_HFRw8WSZy7lnWd-X4ON2Ckb9Jm6ZyUMZi7_QkBCs");'></div>
-        <div class="flex-1">
-          <p class="font-bold">Selamawit</p>
-          <p class="text-sm text-black/60 dark:text-white/60">2 months ago</p>
-        </div>
-      </div>
-      <div class="flex gap-0.5 text-primary">
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-      </div>
-      <p class="text-black/80 dark:text-white/80 leading-relaxed">
-        Fancy Surprise Planner exceeded all my expectations! They created the most magical surprise proposal for my fiancée. The attention to detail and personalized touches were truly remarkable. Highly recommended!
-      </p>
-    </div>
-
-    <!-- Abebe -->
-    <div class="flex flex-col gap-4 bg-background-light dark:bg-background-dark p-6 rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-lg transition-all fade-stagger" style="--delay:0.2s">
-      <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOxJNFdslB85OrdftZEOTz_s-yqZtxmxqDpQ5x3jU9osEVaIaAgsVO21jN7KsCJv0FpflulmGA1c7rHEO2YOqX-uUVqh1KE520UW2mzhyailQbG9qNlLHINv9t-d2fEXze_Cr-UkexzvwtuniWdXTFaDagChLD-k_Jf8MYsq4IYdFkPeAY9-VoOGFB3w4GSgcBAKRWG8VOD_6nN7ODxv3mFAR25SVuqhrWi_lwmDSQsOvyr6Yxn8SGgCYns7HFIIQQGH_6PStUv8c");'></div>
-        <div class="flex-1">
-          <p class="font-bold">Abebe</p>
-          <p class="text-sm text-black/60 dark:text-white/60">3 months ago</p>
-        </div>
-      </div>
-      <div class="flex gap-0.5 text-primary">
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-      </div>
-      <p class="text-black/80 dark:text-white/80 leading-relaxed">
-        I was blown away by the surprise birthday party Fancy Surprise Planner organized for my wife. The decorations were stunning and the event flawless. Truly unforgettable!
-      </p>
-    </div>
-
-    <!-- Tigist -->
-    <div class="flex flex-col gap-4 bg-background-light dark:bg-background-dark p-6 rounded-xl border border-primary/20 dark:border-primary/30 shadow-sm hover:shadow-lg transition-all fade-stagger" style="--delay:0.3s">
-      <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXo1LszSPTNF-CcdqgQ9rcnZAtN3I2KDOz5w36y6I1qmx4MvBR5Lm-WirplZ7pmt2fHKLphNaJIMBdBCS6kvWCW-hUkek8Upu9H02Ta9-6sSa6i1UH3Hxito8N0D6eRPXI7f-eqLBIXEaKZ77K2boToBXTixs07hKHggvO6znbINleQup-n7BV3-pHDWspiBBCc8LC7_Fv7I6iimGmT2gqSqIcMaZRpjk-WyHkyoehjW6zpvQq1PUCTYAcrN1AWeLZbwbsrLWOIZI");'></div>
-        <div class="flex-1">
-          <p class="font-bold">Tigist</p>
-          <p class="text-sm text-black/60 dark:text-white/60">5 months ago</p>
-        </div>
-      </div>
-      <div class="flex gap-0.5 text-primary">
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl">star</span>
-        <span class="material-symbols-outlined text-xl text-black/20 dark:text-white/20">star</span>
-      </div>
-      <p class="text-black/80 dark:text-white/80 leading-relaxed">
-        Fancy Surprise Planner did a great job with my anniversary celebration. The decor was beautiful, and the team handled everything smoothly despite small hiccups.
-      </p>
-    </div>
-
-  </div>
-</div>
-
-<!-- Reuse the same fade animation styles and script -->
-
-<!-- Contact Section -->
-<!-- Contact Section -->
-<section id="contact" class="mx-auto w-full max-w-2xl px-6 sm:px-8 lg:px-0 py-20 text-center">
-  <h2 class="font-heading text-3xl md:text-4xl font-bold mb-12 fade-up">Contact Us</h2>
-
-  <form action="#" method="POST" class="space-y-8 mx-auto fade-up">
-    <!-- Name -->
-    <div class="fade-up delay-100">
-      <label for="name" class="block text-sm font-medium leading-6 mb-2">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your Name"
-        class="w-full sm:w-11/12 md:w-10/12 lg:w-full mx-auto rounded-xl border border-primary/30 bg-background-light dark:bg-background-dark py-4 px-5 text-base text-black dark:text-white shadow-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-    </div>
-
-    <!-- Email -->
-    <div class="fade-up delay-200">
-      <label for="email" class="block text-sm font-medium leading-6 mb-2">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your Email"
-        class="w-full sm:w-11/12 md:w-10/12 lg:w-full mx-auto rounded-xl border border-primary/30 bg-background-light dark:bg-background-dark py-4 px-5 text-base text-black dark:text-white shadow-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-    </div>
-
-    <!-- Phone -->
-    <div class="fade-up delay-300">
-      <label for="phone" class="block text-sm font-medium leading-6 mb-2">Phone</label>
-      <input type="tel" id="phone" name="phone" placeholder="Your Phone"
-        class="w-full sm:w-11/12 md:w-10/12 lg:w-full mx-auto rounded-xl border border-primary/30 bg-background-light dark:bg-background-dark py-4 px-5 text-base text-black dark:text-white shadow-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-    </div>
-
-    <!-- Message -->
-    <div class="fade-up delay-400">
-      <label for="message" class="block text-sm font-medium leading-6 mb-2">Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Your Message"
-        class="w-full sm:w-11/12 md:w-10/12 lg:w-full mx-auto rounded-xl border border-primary/30 bg-background-light dark:bg-background-dark py-4 px-5 text-base text-black dark:text-white shadow-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all"></textarea>
-    </div>
-
-    <!-- Button -->
-    <div class="fade-up delay-500 flex justify-center">
-      <button type="submit"
-        class="rounded-full bg-primary px-10 py-3.5 text-base font-semibold text-white shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all">
-        Send Message
-      </button>
-    </div>
-  </form>
-</section>
-
-<!-- Fade Animations -->
-<style>
-  .fade-up {
+  /* ---------- Unified reveal-on-scroll system ---------- */
+  [data-reveal]{
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease-out;
+    transform: translateY(26px);
+    transition: opacity .8s cubic-bezier(.22,.9,.35,1), transform .8s cubic-bezier(.22,.9,.35,1);
+    transition-delay: var(--d, 0s);
+    will-change: opacity, transform;
   }
-
-  .fade-up.visible {
+  [data-reveal].is-visible{
     opacity: 1;
     transform: translateY(0);
   }
+  [data-reveal="scale"]{ transform: translateY(14px) scale(.85); }
+  [data-reveal="scale"].is-visible{ transform: translateY(0) scale(1); }
 
-  .delay-100 { transition-delay: 0.1s; }
-  .delay-200 { transition-delay: 0.2s; }
-  .delay-300 { transition-delay: 0.3s; }
-  .delay-400 { transition-delay: 0.4s; }
-  .delay-500 { transition-delay: 0.5s; }
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity: 1 !important; transform: none !important; transition: none !important; }
+    *{ scroll-behavior: auto !important; }
+  }
+
+  /* ---------- Nav ---------- */
+  #site-nav{
+    transition: box-shadow .4s ease, background-color .4s ease, border-color .4s ease, padding .4s ease;
+  }
+  #site-nav.scrolled{
+    box-shadow: 0 10px 40px -18px rgba(42,20,32,.35);
+  }
+  .nav-link{ position: relative; }
+  .nav-link::after{
+    content:""; position:absolute; left:0; bottom:-4px; width:0; height:2px;
+    background: currentColor; transition: width .35s cubic-bezier(.22,.9,.35,1);
+  }
+  .nav-link:hover::after, .nav-link.active::after{ width: 100%; }
+  .nav-link.active{ color: #d9749f; }
+
+  /* ---------- Ambient hero motion ---------- */
+  @keyframes float-slow{
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(10px,-16px) rotate(4deg); }
+  }
+  @keyframes float-slower{
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-14px,12px) rotate(-3deg); }
+  }
+  .float-a{ animation: float-slow 9s ease-in-out infinite; }
+  .float-b{ animation: float-slower 11s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .float-a, .float-b{ animation: none; } }
+
+  /* ---------- Gallery carousel ---------- */
+  #carousel-viewport{ perspective: 1200px; touch-action: pan-y; }
+  .carousel-slide{
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -20px rgba(42,20,32,.45);
+    background-size: cover;
+    background-position: center;
+    transition: transform .6s cubic-bezier(.22,.9,.35,1), opacity .6s cubic-bezier(.22,.9,.35,1), filter .6s ease;
+    cursor: pointer;
+    border: 3px solid transparent;
+  }
+  .carousel-slide.is-center{
+    border-color: rgba(242,169,204,.9);
+  }
+  .carousel-track{ position:absolute; inset:0; }
+
+  /* ---------- Misc ---------- */
+  .icon-chip{
+    transition: transform .45s cubic-bezier(.34,1.56,.64,1), background-color .3s ease, color .3s ease;
+  }
+  .about-row:hover .icon-chip{ transform: scale(1.12) rotate(-6deg); }
+
+  input:focus, textarea:focus{ outline: none; }
 </style>
+</head>
 
-<!-- Intersection Observer -->
-<script>
-  const fadeUps = document.querySelectorAll('.fade-up');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.2 });
-  fadeUps.forEach(el => observer.observe(el));
-</script>
+<body class="font-sans bg-background-light dark:bg-background-dark text-ink dark:text-white antialiased">
+<div class="flex flex-col min-h-screen">
 
+<!-- ===================== NAV ===================== -->
+<header class="fixed top-0 inset-x-0 z-50 px-3 sm:px-4 pt-3 sm:pt-4">
+  <div id="site-nav" class="mx-auto w-full max-w-6xl flex items-center justify-between gap-3 rounded-full border border-primary/20 dark:border-primary/25 bg-background-light/80 dark:bg-surface-dark/80 backdrop-blur-xl px-4 sm:px-5 py-2.5">
 
-<!-- Footer -->
-<footer class="bg-background-light dark:bg-background-dark border-t border-primary/20 dark:border-primary/30 py-10 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6 text-center text-black/70 dark:text-white/70">
-    <div class="flex items-center gap-6">
-      <!-- TikTok -->
-      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" class="w-12 h-12 flex items-center justify-center  p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-tiktok text-xl hover:text-primary transition-colors duration-500"></i>
+    <a href="#hero" class="flex items-center gap-2 flex-shrink-0">
+      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-primary/15 text-primary-dark dark:text-primary">
+        <i class="fa-solid fa-gift text-base"></i>
+      </span>
+      <span class="font-script text-lg sm:text-xl leading-none">Fancy Surprise Planner </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-7 text-sm font-medium">
+      <a href="#hero" class="nav-link active">Home</a>
+      <a href="#packages" class="nav-link">Packages</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#testimonials" class="nav-link">Reviews</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <a href="/loginpage.html" class="hidden sm:inline-flex rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">Login</a>
+      <button aria-label="Toggle color theme" class="flex items-center justify-center rounded-full h-10 w-10 border border-primary/20 dark:border-primary/25 hover:bg-primary/10 dark:hover:bg-primary/15 transition-colors" onclick="toggleTheme()">
+        <span class="material-symbols-outlined text-[20px] dark:hidden">light_mode</span>
+        <span class="material-symbols-outlined text-[20px] hidden dark:inline">dark_mode</span>
+      </button>
+      <button class="lg:hidden flex items-center justify-center rounded-full h-10 w-10 border border-primary/20 dark:border-primary/25" id="hamburger-button" aria-label="Open menu">
+        <span class="material-symbols-outlined text-[20px]">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none">
+  <div id="mobile-backdrop" class="absolute inset-0 bg-ink/40 dark:bg-black/60 opacity-0 transition-opacity duration-300"></div>
+  <div id="mobile-panel" class="absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-background-light dark:bg-surface-dark shadow-lift p-6 translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <button class="self-end flex items-center justify-center w-9 h-9 rounded-full border border-primary/20" id="close-button" aria-label="Close menu">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+    <nav class="flex flex-col gap-5 mt-10 text-lg font-medium">
+      <a href="#hero" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Home</a>
+      <a href="#packages" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Packages</a>
+      <a href="#gallery" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Gallery</a>
+      <a href="#about" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">About</a>
+      <a href="#testimonials" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Reviews</a>
+      <a href="#contact" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Contact</a>
+      <a href="/loginpage.html" class="mt-3 rounded-full bg-primary text-ink text-center py-3 font-semibold">Login</a>
+    </nav>
+    <div class="flex items-center gap-3 mt-auto pt-8">
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-tiktok"></i>
       </a>
-
-      <!-- Instagram -->
-      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-instagram text-xl hover:text-primary transition-colors duration-500"></i>
+      <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-instagram"></i>
       </a>
-      <!-- Telegram -->
-      <a href="#" target="_blank" class="w-12 h-12 flex items-center justify-center p-3 rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all duration-500 transform hover:-translate-y-1">
-        <i class="fa-brands fa-telegram text-xl hover:text-primary transition-colors duration-500"></i>
+      <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-telegram"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero" class="relative flex items-center justify-center min-h-screen pt-32 pb-20 bg-gradient-to-br from-pink-50 via-background-light to-pink-100 dark:from-[#241019] dark:via-background-dark dark:to-[#2f1723] px-6 sm:px-8 lg:px-10 text-center overflow-hidden">
+
+  <div class="absolute inset-0 pointer-events-none -z-0 flex items-center justify-center">
+    <div class="w-[560px] h-[560px] rounded-full blur-3xl opacity-30 bg-primary/25"></div>
+  </div>
+  <div class="absolute top-28 left-[8%] text-primary/40 dark:text-primary/30 float-a pointer-events-none hidden sm:block">
+    <span class="material-symbols-outlined text-4xl">auto_awesome</span>
+  </div>
+  <div class="absolute bottom-24 right-[10%] text-gold/50 float-b pointer-events-none hidden sm:block">
+    <span class="material-symbols-outlined text-5xl">star</span>
+  </div>
+  <div class="absolute top-1/3 right-[6%] text-primary/30 float-b pointer-events-none hidden md:block">
+    <i class="fa-solid fa-gift text-3xl"></i>
+  </div>
+
+  <div class="relative max-w-2xl mx-auto flex flex-col items-center gap-5 px-4">
+
+ 
+
+    <h2 data-reveal style="--d:0.1s" class="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.08] tracking-tight">
+      Every Surprise, <span class="italic text-primary-dark dark:text-primary">A Masterpiece</span>
+    </h2>
+
+    <p data-reveal style="--d:0.22s" class="text-base sm:text-lg text-ink/70 dark:text-white/70 max-w-xl">
+      We craft beautiful personalized moments and elegant setup for an unforgettable experience.
+    </p>   
+
+    <div data-reveal style="--d:0.34s" class="mt-4 flex justify-center gap-4 flex-wrap">
+      <a href="#packages" class="rounded-full bg-primary text-ink px-7 py-3 text-sm sm:text-base font-semibold shadow-soft hover:-translate-y-0.5 hover:shadow-lift transition-all duration-300">
+        Explore Packages
+      </a>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
+        See Our TikTok <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
       </a>
     </div>
 
-    <p class="text-sm tracking-wide">© 2025 <span class="font-semibold text-primary">Fancy Surprise Planner</span>. All rights reserved.</p>
+    <!-- <div data-reveal style="--d:0.46s" class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-ink/60 dark:text-white/60">
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">celebration</span>150+ surprises planned</div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-gold text-[20px]">star</span>5.0 average rating</div>
+      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">favorite</span>Made for every occasion</div>
+    </div> -->
   </div>
+</section>
+
+<!-- ===================== PACKAGES ===================== -->
+<section id="packages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-16" data-reveal style="--d:0s">
+    <p class="text-x font-semibold tracking-[0.3em] uppercase text-primary-dark dark:text-primary mb-5">Our  Packages</p>
+    <!-- <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Choose your level of magic</h2> -->
+    <!-- <p class="mt-4 text-ink/65 dark:text-white/65">Every package includes a free consultation call and full setup &amp; cleanup — pick the scale that fits your celebration.</p> -->
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+    <!-- Silver -->
+    <div data-reveal style="--d:0.05s" class="flex flex-col rounded-2xl p-8 border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Silver</span>
+        <i class="fa-solid fa-gift text-xl text-primary-dark/70 dark:text-primary/70"></i>
+      </div>
+      <p class="font-serif text-4xl font-semibold">15,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">A refined, essential setup</p>
+      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+      </ul>
+      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Silver</a> -->
+    </div>
+
+    <!-- Golden -->
+    <div data-reveal style="--d:0.15s" class="flex flex-col rounded-2xl p-8 border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Golden</span>
+        <i class="fa-solid fa-gift text-2xl text-primary-dark/70 dark:text-primary/70"></i>
+      </div>
+      <p class="font-serif text-4xl font-semibold">20,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">Our most well-rounded celebration</p>
+      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+      </ul>
+      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Golden</a> -->
+    </div>
+
+    <!-- Platinum - most popular -->
+    <div data-reveal style="--d:0.25s" class="relative flex flex-col rounded-2xl p-8 border-2 border-primary bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/[0.08] shadow-lift lg:-translate-y-3">
+      <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-ink px-4 py-1.5 rounded-full text-xs font-bold shadow-soft flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px]">auto_awesome</span>Most Popular
+      </div>
+      <div class="flex items-center justify-between mb-6 mt-2">
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary">Platinum</span>
+        <i class="fa-solid fa-gift text-3xl text-primary-dark dark:text-primary"></i>
+      </div>
+      <p class="font-serif text-4xl font-semibold">25,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">The full, unforgettable experience</p>
+      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Full decor &amp; lighting (2 weeks)</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Priority booking</li>
+        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+      </ul>
+      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full bg-primary text-ink px-6 py-3 font-semibold text-sm shadow-soft hover:bg-primary-dark hover:text-white transition-colors">Choose Platinum</a> -->
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section id="gallery" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 overflow-hidden">
+  <div class="text-center max-w-2xl mx-auto mb-14" data-reveal style="--d:0s">
+    <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">Gallery</p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Watch Our Work</h2> 
+    <!-- <p class="mt-4 text-ink/65 dark:text-white/65">Drag, or just watch it drift — tap any photo to bring it front and center.</p> -->
+  </div>
+
+  <div data-reveal style="--d:0.1s" class="relative">
+    <div id="carousel-viewport" class="relative h-[240px] xs:h-[280px] sm:h-[340px] md:h-[400px] select-none" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Event gallery">
+      <div id="carousel-track" class="carousel-track"></div>
+    </div>
+
+    <button id="carousel-prev" aria-label="Previous photo" class="absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background-light dark:bg-surface-dark border border-primary/25 shadow-soft hover:bg-primary/10 transition-colors">
+      <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <button id="carousel-next" aria-label="Next photo" class="absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background-light dark:bg-surface-dark border border-primary/25 shadow-soft hover:bg-primary/10 transition-colors">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+
+    <div id="carousel-dots" class="flex justify-center gap-2 mt-8"></div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+    <div data-reveal style="--d:0s" class="relative order-2 lg:order-1">
+      <div class="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-primary/15 -z-10 rotate-2"></div>
+      <div class="rounded-[1.75rem] overflow-hidden shadow-lift aspect-[4/3]">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGSyG042qt7f26yrstibSi1kD4RiEB4sOErGY8AWgQaap9Einky1CXQW_bm7r4QHyhEbOV8wtGL0OsXY2TP-GS-RLFLh5IEs0QRq0uXpGudBxG34k62ffIJYOJB6IX5p3j7diYRW9Jb_Y9uQC1aKH3GvByamj-XYbFmAD16yY_8tDjb9HBf4XBNU0ufoW4Yec2ooWyKbQIPEZyMa9uwjEIvILEBeHKoOLk6h0DeAaehyCbm2VewfRKxgyMBySYlHEV314DEHgxx0E" alt="A beautifully decorated surprise setup by Fancy Surprise Planner" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute -bottom-6 -right-4 sm:-right-8 bg-background-light dark:bg-surface-dark border border-primary/20 rounded-2xl shadow-lift px-5 py-4 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl text-primary-dark dark:text-primary">favorite</span>
+        <div class="text-left leading-tight">
+          <p class="font-serif text-lg font-semibold">3+ Years</p>
+          <p class="text-xs text-ink/55 dark:text-white/55">crafting surprises</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <p data-reveal style="--d:0s" class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">About Us</p>
+      <h2 data-reveal style="--d:0.05s" class="font-serif text-3xl sm:text-4xl font-semibold mb-5">Why choose Fancy Surprise Planner</h2>
+      <p data-reveal style="--d:0.1s" class="text-ink/70 dark:text-white/70 leading-relaxed mb-9">
+        We're all about creating moments that make people feel truly special. Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences — especially for new moms and other milestone occasions. From concept to final setup, we handle everything with care and creativity.
+      </p>
+
+      <div class="flex flex-col gap-1">
+        <div data-reveal style="--d:0.15s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+          <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">auto_awesome</span></span>
+          <div>
+            <h3 class="font-semibold text-sm sm:text-base">Creative Designs</h3>
+            <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Unique and innovative surprise concepts</p>
+          </div>
+        </div>
+        <div data-reveal style="--d:0.2s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+          <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">favorite</span></span>
+          <div>
+            <h3 class="font-semibold text-sm sm:text-base">Personalized Touch</h3>
+            <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Tailored to your preferences and story</p>
+          </div>
+        </div>
+        <div data-reveal style="--d:0.25s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+          <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">event_available</span></span>
+          <div>
+            <h3 class="font-semibold text-sm sm:text-base">Seamless Planning</h3>
+            <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Stress-free execution from start to finish</p>
+          </div>
+        </div>
+        <div data-reveal style="--d:0.3s" class="about-row flex items-center gap-4 py-3.5">
+          <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">groups</span></span>
+          <div>
+            <h3 class="font-semibold text-sm sm:text-base">Dedicated Team</h3>
+            <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Passionate professionals committed to excellence</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-14" data-reveal style="--d:0s">
+    <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">Testimonials</p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Loved by the people we've surprised</h2>
+    <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-sm font-semibold">
+      <span class="material-symbols-outlined text-gold text-[18px]">star</span>4.9 average from recent clients
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+
+    <div data-reveal style="--d:0.05s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
+      <div class="flex items-center gap-3">
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvcj-Gwc0Q4kkMBdjtMivcJWtI71MRsyQb1TvDf9aMjfOaVh5QUT2-YGVfg1Tzi_wysEYZgGMkeW-ygu4QlU366rnaik2gv-Ran_fcOMvKfjIB_uIUgz3waLZZEzcqiDR9V7Svwpu2ugFKHSmahutTdAowOfdxRtCmrLcUmcfBSaMWyBr8p6RooMkJzncBySpIArWiAP2Aa1zh3rnyndMG3RpAUvjm7liqd9_HFRw8WSZy7lnWd-X4ON2Ckb9Jm6ZyUMZi7_QkBCs");'></div>
+        <div>
+          <p class="font-semibold text-sm">Selamawit</p>
+          <p class="text-xs text-ink/50 dark:text-white/50">2 months ago</p>
+        </div>
+      </div>
+      <div class="flex gap-0.5 text-gold">
+        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
+      </div>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner exceeded all my expectations! They created the most magical surprise proposal for my fiancée. The attention to detail was truly remarkable.</p>
+    </div>
+
+    <div data-reveal style="--d:0.15s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
+      <div class="flex items-center gap-3">
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOxJNFdslB85OrdftZEOTz_s-yqZtxmxqDpQ5x3jU9osEVaIaAgsVO21jN7KsCJv0FpflulmGA1c7rHEO2YOqX-uUVqh1KE520UW2mzhyailQbG9qNlLHINv9t-d2fEXze_Cr-UkexzvwtuniWdXTFaDagChLD-k_Jf8MYsq4IYdFkPeAY9-VoOGFB3w4GSgcBAKRWG8VOD_6nN7ODxv3mFAR25SVuqhrWi_lwmDSQsOvyr6Yxn8SGgCYns7HFIIQQGH_6PStUv8c");'></div>
+        <div>
+          <p class="font-semibold text-sm">Abebe</p>
+          <p class="text-xs text-ink/50 dark:text-white/50">3 months ago</p>
+        </div>
+      </div>
+      <div class="flex gap-0.5 text-gold">
+        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
+      </div>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">I was blown away by the surprise birthday party they organized for my wife. The decorations were stunning and the event flawless. Truly unforgettable!</p>
+    </div>
+
+    <div data-reveal style="--d:0.25s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
+      <div class="flex items-center gap-3">
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXo1LszSPTNF-CcdqgQ9rcnZAtN3I2KDOz5w36y6I1qmx4MvBR5Lm-WirplZ7pmt2fHKLphNaJIMBdBCS6kvWCW-hUkek8Upu9H02Ta9-6sSa6i1UH3Hxito8N0D6eRPXI7f-eqLBIXEaKZ77K2boToBXTixs07hKHggvO6znbINleQup-n7BV3-pHDWspiBBCc8LC7_Fv7I6iimGmT2gqSqIcMaZRpjk-WyHkyoehjW6zpvQq1PUCTYAcrN1AWeLZbwbsrLWOIZI");'></div>
+        <div>
+          <p class="font-semibold text-sm">Tigist</p>
+          <p class="text-xs text-ink/50 dark:text-white/50">5 months ago</p>
+        </div>
+      </div>
+      <div class="flex gap-0.5 text-gold">
+        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg text-ink/15 dark:text-white/15">star</span>
+      </div>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner did a great job with my anniversary celebration. The decor was beautiful, and the team handled everything smoothly despite small hiccups.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div data-reveal style="--d:0s" class="grid grid-cols-1 md:grid-cols-5 rounded-[2rem] overflow-hidden shadow-lift border border-primary/15">
+
+    <div class="md:col-span-2 bg-ink dark:bg-surface-dark text-white p-9 sm:p-10 flex flex-col justify-between">
+      <div>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary mb-3">Get In Touch</p>
+        <h2 class="font-serif text-2xl sm:text-3xl font-semibold mb-4">Let's plan your surprise</h2>
+        <p class="text-white/70 text-sm leading-relaxed">Tell us the occasion and the person — we'll take it from there. We usually reply within a day.</p>
+      </div>
+
+      <div class="mt-10 flex flex-col gap-4 text-sm">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">location_on</span></span>
+          Addis Ababa, Ethiopia
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">mail</span></span>
+          hello@fancysurpriseplanner.com
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">schedule</span></span>
+          Mon – Sat, 9am – 7pm
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 mt-10">
+        <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
+          <i class="fa-brands fa-tiktok text-sm"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
+          <i class="fa-brands fa-instagram text-sm"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
+          <i class="fa-brands fa-telegram text-sm"></i>
+        </a>
+      </div>
+    </div>
+
+    <form action="#" method="POST" class="md:col-span-3 bg-background-light dark:bg-background-dark p-9 sm:p-10 flex flex-col gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <label for="name" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required
+            class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+        </div>
+        <div>
+          <label for="phone" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="Your phone"
+            class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+        </div>
+      </div>
+      <div>
+        <label for="email" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required
+          class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+      </div>
+      <div class="flex-1 flex flex-col">
+        <label for="message" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell us about the occasion..."
+          class="w-full flex-1 rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"></textarea>
+      </div>
+      <button type="submit"
+        class="rounded-full bg-primary text-ink py-3.5 text-sm font-semibold shadow-soft hover:bg-primary-dark hover:text-white transition-colors">
+        Send Message
+      </button>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t border-primary/15 py-12 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+
+    <div class="flex items-center gap-2">
+      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-primary/15 text-primary-dark dark:text-primary">
+        <i class="fa-solid fa-gift text-sm"></i>
+      </span>
+      <span class="font-script text-lg">Fancy Surprise Planner</span>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink/60 dark:text-white/60">
+      <a href="#hero" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Home</a>
+      <a href="#packages" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Packages</a>
+      <a href="#gallery" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Gallery</a>
+      <a href="#about" class="hover:text-primary-dark dark:hover:text-primary transition-colors">About</a>
+      <a href="#contact" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-tiktok text-sm"></i>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-instagram text-sm"></i>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-telegram text-sm"></i>
+      </a>
+    </div>
+  </div>
+  <p class="text-center text-xs text-ink/45 dark:text-white/45 mt-8">© 2026 <span class="font-semibold text-primary-dark dark:text-primary">Fancy Surprise Planner</span>. All rights reserved.</p>
 </footer>
-
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
 
 </div>
 
 <script>
+/* ============================================================
+   THEME TOGGLE
+============================================================ */
+function toggleTheme(){
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+}
 
+/* ============================================================
+   MOBILE MENU
+============================================================ */
+(function(){
+  const hamburgerButton = document.getElementById('hamburger-button');
+  const closeButton = document.getElementById('close-button');
+  const menu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('mobile-backdrop');
+  const panel = document.getElementById('mobile-panel');
+
+  function openMenu(){
+    menu.classList.remove('pointer-events-none');
+    requestAnimationFrame(() => {
+      backdrop.style.opacity = '1';
+      panel.style.transform = 'translateX(0)';
+    });
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu(){
+    backdrop.style.opacity = '0';
+    panel.style.transform = 'translateX(100%)';
+    document.body.style.overflow = '';
+    setTimeout(() => menu.classList.add('pointer-events-none'), 300);
+  }
+
+  hamburgerButton.addEventListener('click', openMenu);
+  closeButton.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+  menu.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', closeMenu));
+})();
+
+/* ============================================================
+   NAV: scroll shadow + active link highlighting
+============================================================ */
+(function(){
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  }, { passive: true });
+
+  const links = document.querySelectorAll('.nav-link');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = '#' + entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(s => navObserver.observe(s));
+})();
+
+/* ============================================================
+   UNIFIED REVEAL-ON-SCROLL
+============================================================ */
+(function(){
+  const els = document.querySelectorAll('[data-reveal]');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ============================================================
+   GALLERY CAROUSEL (coverflow-style, autoplay + drag)
+============================================================ */
+(function(){
+  const images = [
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuBGSyG042qt7f26yrstibSi1kD4RiEB4sOErGY8AWgQaap9Einky1CXQW_bm7r4QHyhEbOV8wtGL0OsXY2TP-GS-RLFLh5IEs0QRq0uXpGudBxG34k62ffIJYOJB6IX5p3j7diYRW9Jb_Y9uQC1aKH3GvByamj-XYbFmAD16yY_8tDjb9HBf4XBNU0ufoW4Yec2ooWyKbQIPEZyMa9uwjEIvILEBeHKoOLk6h0DeAaehyCbm2VewfRKxgyMBySYlHEV314DEHgxx0E",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuDR5PoLTIg5XLPaiHw_kB36V68DDY0otmLPo5XBNwDEP8YoKBdUrNzqI2HeEgDkLJ8fnBFRIqdppLxTwwqXtYwI-UAM0PJ0iKrDdgJrGduQIaI56D17Rmh1g-RMbtAIpDrUfhoZhnh6FhOauB1kgUBXyZkQSMeCnOj0b952itKNIprdNZYQee5mgONx24_TFsC4Fq8eJayu6702h3Lww2_BXTB6xUyyTBv8oLHXM5sM8VpYUj443qyfpomOIWzJm39LDbi2V7jBOK0",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuBrlVNBObPO9mu9U9A4GVDojve2o0Pl6KWlmtHCykP3jva-beGi9S3EGvh_HvlBnM46GFp2kRpvt33Hx_punHlr1qg21Nn8cdmEW_-qsPFWZZrQmdA66QflDlvs7h1G5jSvQeG_xw6wd6kA05pG_5cXjWd0_ysAMosas2my9OwHVzeyjs8X9_NXdGSZQjOZpSElMoOu1-yp16trrvJpMmxdnMoO0pc2bR6fnyF5-AlwcvNtxOo0V32BhletT4tYvsSN0KJqpaWvR6w",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuCjFNSYSnIQ_9SIHbZB-Q3yFAsobxf1vD1zn7mTjQURFwNJWjM091qCstKaFqkMSRLWE581QiqMOh0D7XfR3l2AAgh-i8G7xxgocoUc0uIHCtHuUe1m9SIG4J2Z7TC0qGbHeOQFl7LFNl0XDEMHtruvG5TtMswPplZhSDQuJ8_c8EZhbTVH3aN5LfgAQtdKgb_IeOVbTXs2-HbeirGmrll077a0vi6Vx5HzSepwjr_BQuitbwKzt6vJ6l_M0hHjwAn-rSf5fws_6Cs",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuC1iIZMtacA952xx0jZ_KiOSw-_70T5EBPMs-q7Re5JeblLZJTGbt1jQHpKSM36Ri4pqP_ykWE9z7ICsA-216sB-amzJxtH0y4ncYOI19do_I1mvyHVG3noAZdJA4X1fk0XOCZb3x2AYBUi2J69Nxs1SJfM9jcu8wASkaiTNHe-h6md5c9Xn_OV_DheWTiI0B3456xWPdgWzgnXxABx11t1yjLTWAcwyiBUXujyx8N1HK3Jnkzq9bIHVjsnmT_Z8Nw6q6r3fR6fZ7g",
+    "https://lh3.googleusercontent.com/aida-public/AB6AXuAxnL60lk6cQR23vBgo7SVVdfWOkbXeNrFUYE5uBWZCSDs6J5gFREBvkNEuxoArl4hhXJj0BICZbTe8qZSI0C9Y5DVvkb0G1cc6Bf_5Gl0lwBax8z0tH59H_85pgZ_YPB0RWA7NK6BwyYGGONJuV-O5nDoWRe5_yPSF04odXa33J7HVaBL1mDMPICXMla6tMddo8O7W1I7F1AXU0vqKdoC_h-E0pZt64qOdPrPdj8VtoPp0t7Nl6hhhKrR1d8AsoGzH1ry0pxW9Ynk"
+  ];
+
+  const viewport = document.getElementById('carousel-viewport');
+  const track = document.getElementById('carousel-track');
+  const dotsWrap = document.getElementById('carousel-dots');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const N = images.length;
+  let current = 0;
+  let autoplayTimer = null;
+  let isPointerDown = false;
+  let startX = 0;
+  let dragDelta = 0;
+
+  const slides = images.map((src, i) => {
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'carousel-slide';
+    el.style.backgroundImage = `url("${src}")`;
+    el.setAttribute('aria-label', `View photo ${i + 1} of ${N}`);
+    el.addEventListener('click', () => { if (i !== current) { goTo(i); restartAutoplay(); } });
+    track.appendChild(el);
+    return el;
+  });
+
+  const dots = images.map((_, i) => {
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.setAttribute('aria-label', `Go to photo ${i + 1}`);
+    d.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-primary/25';
+    d.addEventListener('click', () => { goTo(i); restartAutoplay(); });
+    dotsWrap.appendChild(d);
+    return d;
+  });
+
+  function shortestDiff(idx, cur){
+    let diff = idx - cur;
+    if (diff > N / 2) diff -= N;
+    if (diff < -N / 2) diff += N;
+    return diff;
+  }
+
+  function layout(){
+    const vw = viewport.clientWidth;
+    const slideWidth = Math.max(160, Math.min(420, vw * 0.5));
+    const slideHeight = viewport.clientHeight * 0.86;
+    const offsetPx = slideWidth * 0.62;
+
+    slides.forEach((el, i) => {
+      const diff = shortestDiff(i, current);
+      const abs = Math.abs(diff);
+      const scale = diff === 0 ? 1 : abs === 1 ? 0.74 : 0.55;
+      const opacity = abs > 2 ? 0 : diff === 0 ? 1 : abs === 1 ? 0.85 : 0.5;
+      const z = 10 - abs;
+
+      el.style.width = slideWidth + 'px';
+      el.style.height = slideHeight + 'px';
+      el.style.zIndex = z;
+      el.style.opacity = opacity;
+      el.style.pointerEvents = abs > 2 ? 'none' : 'auto';
+      el.classList.toggle('is-center', diff === 0);
+      el.style.transform = `translate(-50%, -50%) translateX(${diff * offsetPx}px) scale(${scale})`;
+    });
+
+    dots.forEach((d, i) => {
+      d.className = 'rounded-full transition-all duration-300 ' + (i === current
+        ? 'w-6 h-2 bg-primary'
+        : 'w-2 h-2 bg-primary/25 hover:bg-primary/50');
+    });
+  }
+
+  function goTo(i){
+    current = ((i % N) + N) % N;
+    layout();
+  }
+  function next(){ goTo(current + 1); }
+  function prev(){ goTo(current - 1); }
+
+  function startAutoplay(){
+    if (reducedMotion) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(next, 4200);
+  }
+  function stopAutoplay(){
+    if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+  }
+  function restartAutoplay(){ startAutoplay(); }
+
+  prevBtn.addEventListener('click', () => { prev(); restartAutoplay(); });
+  nextBtn.addEventListener('click', () => { next(); restartAutoplay(); });
+
+  viewport.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { prev(); restartAutoplay(); }
+    if (e.key === 'ArrowRight') { next(); restartAutoplay(); }
+  });
+
+  viewport.addEventListener('mouseenter', stopAutoplay);
+  viewport.addEventListener('mouseleave', startAutoplay);
+  viewport.addEventListener('focusin', stopAutoplay);
+  viewport.addEventListener('focusout', startAutoplay);
+
+  viewport.addEventListener('pointerdown', (e) => {
+    isPointerDown = true;
+    startX = e.clientX;
+    dragDelta = 0;
+    stopAutoplay();
+    viewport.setPointerCapture(e.pointerId);
+  });
+  viewport.addEventListener('pointermove', (e) => {
+    if (!isPointerDown) return;
+    dragDelta = e.clientX - startX;
+    track.style.transform = `translateX(${dragDelta * 0.5}px)`;
+  });
+  function endDrag(){
+    if (!isPointerDown) return;
+    isPointerDown = false;
+    track.style.transform = '';
+    const threshold = 55;
+    if (dragDelta > threshold) prev();
+    else if (dragDelta < -threshold) next();
+    else layout();
+    dragDelta = 0;
+    restartAutoplay();
+  }
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAutoplay(); else startAutoplay();
+  });
+
+  window.addEventListener('resize', layout);
+
+  layout();
+  startAutoplay();
+})();
 </script>
+
 </body>
 </html>
