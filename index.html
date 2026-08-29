@@ -85,7 +85,9 @@ tailwind.config = {
     [data-reveal]{ opacity: 1 !important; transform: none !important; transition: none !important; }
     *{ scroll-behavior: auto !important; }
   }
-
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-thumb{ background:#c9457e; border-radius:99px; }
+::-webkit-scrollbar-track{ background:#fdf1f6; }
   /* ---------- Nav ---------- */
   #site-nav{
     transition: box-shadow .4s ease, background-color .4s ease, border-color .4s ease, padding .4s ease;
@@ -182,7 +184,7 @@ tailwind.config = {
 
     <a href="#hero" class="flex items-center gap-2 flex-shrink-0 min-w-0">
       <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-16  sm:h-16 w-99 object-contain -my-1">
-    </a>
+     </a>
  
     <nav class="hidden lg:flex items-center gap-7 text-sm font-medium">
       <a href="#hero" class="nav-link active">Home</a>
@@ -194,9 +196,9 @@ tailwind.config = {
     </nav>
 
     <div class="flex items-center gap-2 flex-shrink-0">
-      <a href="tel:+251911234567" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">
-        <span class="material-symbols-outlined text-[18px]">call</span>Call Us
-      </a>
+   <button onclick="openCallSheet()" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">
+  <span class="material-symbols-outlined text-[18px]">call</span>Call Us
+</button> 
       <button class="lg:hidden flex items-center justify-center rounded-full h-9 w-9 sm:h-10 sm:w-10 border border-primary/20 dark:border-primary/25 flex-shrink-0" id="hamburger-button" aria-label="Open menu" aria-expanded="false">
         <span class="material-symbols-outlined text-[20px]">menu</span>
       </button>
@@ -214,9 +216,9 @@ tailwind.config = {
         <span class="material-symbols-outlined text-[20px]">close</span> 
       </button>
     </div>
-    <a href="tel:+251911234567" class="mt-6 flex items-center justify-center gap-2 rounded-full bg-primary text-ink text-center py-3.5 font-semibold shadow-soft hover:bg-primary-dark hover:text-white transition-colors">
-      <span class="material-symbols-outlined text-[20px]">call</span>Call Us Now
-    </a>
+   <button onclick="openCallSheet()" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">
+  <span class="material-symbols-outlined text-[18px]">call</span>Call Us
+</button> 
     <nav class="flex flex-col mt-8 text-base font-medium divide-y divide-primary/10">
       <a href="#hero" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">home</span>Home</a>
       <a href="#packages" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">redeem</span>Packages</a>
@@ -240,9 +242,12 @@ tailwind.config = {
 </div>
 
 <!-- Persistent mobile call button -->
-<a href="tel:+251911234567" aria-label="Call Fancy Surprise Planner" class="sm:hidden fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink shadow-lift hover:bg-primary-dark hover:text-white transition-colors">
+<!-- <a href="tel:+251911234567" aria-label="Call Fancy Surprise Planner" class="sm:hidden fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink shadow-lift hover:bg-primary-dark hover:text-white transition-colors">
   <span class="material-symbols-outlined text-2xl">call</span>
-</a>
+</a> -->
+<button onclick="openCallSheet()" class="sm:hidden fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink shadow-lift hover:bg-primary-dark hover:text-white transition-colors">
+  <span class="material-symbols-outlined text-[20px]">call</span>
+</button> 
 
 <main>
 
@@ -274,18 +279,18 @@ tailwind.config = {
         <a href="#packages" class="rounded-full bg-primary text-ink px-7 py-3 text-sm sm:text-base font-semibold shadow-soft hover:-translate-y-0.5 hover:shadow-lift transition-all duration-300">
           Explore Packages
         </a>
-        <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
+        <!-- <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
           <i class="fa-brands fa-tiktok mr-2"></i>Watch on TikTok
-        </a>
+        </a> -->
       </div>
 
-      <div data-reveal style="--d:0.46s" class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-3 text-sm text-ink/60 dark:text-white/60">
+      <!-- <div data-reveal style="--d:0.46s" class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-3 text-sm text-ink/60 dark:text-white/60">
         <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">celebration</span>200+ surprises planned</div>
-        <!-- <div class="flex items-center gap-2"><span class="material-symbols-outlined text-gold text-[20px]">star</span>5.0 average rating</div> -->
-      </div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-gold text-[20px]">star</span>5.0 average rating</div>
+      </div> -->
     </div>
 
-    <div data-reveal="scale" style="--d:0.2s" class="relative h-[380px] sm:h-[440px] lg:h-[500px] hidden sm:block">
+    <div data-reveal="scale" style="--d:0.2s" class="relative h-[380px] sm:h-[440px] lg:h-[500px] ">
       <div class="absolute top-0 left-[6%] w-[62%] h-[68%] rounded-[1.75rem] overflow-hidden shadow-lift border-4 border-background-light dark:border-surface-dark rotate-[-3deg]">
         <img src="/assets/photo_2026-08-27_15-32-59.jpg" alt="Fairy-light birthday setup by Fancy Surprise Planner" class="w-full h-full object-cover">
       </div>
@@ -298,8 +303,8 @@ tailwind.config = {
       <div class="absolute bottom-6 left-0 bg-background-light dark:bg-surface-dark border border-primary/20 rounded-2xl shadow-lift px-5 py-3.5 flex items-center gap-3">
         <span class="material-symbols-outlined text-2xl text-primary-dark dark:text-primary">favorite</span>
         <div class="text-left leading-tight">
-          <p class="font-serif text-base font-semibold">3+ Years</p>
-          <p class="text-xs text-ink/55 dark:text-white/55">crafting surprises</p>
+          <p class="font-serif text-base font-semibold">200+</p>
+          <p class="text-xs text-ink/55 dark:text-white/55">surprises planned</p> 
         </div>
       </div>
     </div>
@@ -318,8 +323,8 @@ tailwind.config = {
     <!-- Silver -->
     <div class="flex flex-col rounded-2xl overflow-hidden border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
       <div class="h-44 overflow-hidden">
-        <img src="https://images.pexels.com/photos/3905885/pexels-photo-3905885.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Silver package decor preview" class="w-full h-full object-cover">
-      </div>
+        <img src="/gallery/photo_19_2026-08-26_19-14-59.jpg" alt="Silver package decor preview" class="w-full h-full object-cover">
+      </div> 
       <div class="flex flex-col flex-1 p-8">
         <div class="flex items-center justify-between mb-6">
           <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Silver</span>
@@ -340,7 +345,7 @@ tailwind.config = {
     <!-- Golden -->
     <div class="flex flex-col rounded-2xl overflow-hidden border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
       <div class="h-44 overflow-hidden">
-        <img src="https://images.pexels.com/photos/16220888/pexels-photo-16220888.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Golden package decor preview" class="w-full h-full object-cover">
+        <img src="gallery/photo_6_2026-08-26_19-14-59.jpg" alt="Golden package decor preview" class="w-full h-full object-cover">
       </div>
       <div class="flex flex-col flex-1 p-8">
         <div class="flex items-center justify-between mb-6">
@@ -366,7 +371,7 @@ tailwind.config = {
         <span class="material-symbols-outlined text-[16px]">auto_awesome</span>Most Popular
       </div>
       <div class="h-44 overflow-hidden">
-        <img src="https://images.pexels.com/photos/37296139/pexels-photo-37296139.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Platinum package decor preview" class="w-full h-full object-cover">
+        <img src="/assets/Screenshot 2026-08-29 222106.jpg" alt="Platinum package decor preview" class="w-full h-full object-cover">
       </div>
       <div class="flex flex-col flex-1 p-8">
         <div class="flex items-center justify-between mb-6">
@@ -401,7 +406,28 @@ tailwind.config = {
     <!-- Gallery items injected by script for easy lightbox wiring -->
   </div>
 </section>
-
+<div id="call-sheet" style="display:none;" class="fixed inset-0 z-[80] flex items-end sm:items-center justify-center">
+  <div id="call-backdrop" class="absolute inset-0 bg-ink/50"></div>
+  <div id="call-card" class="relative w-full sm:w-96 sm:rounded-2xl rounded-t-2xl bg-background-light dark:bg-surface-dark shadow-lift p-6 pb-8 sm:pb-6 translate-y-full sm:translate-y-4 sm:opacity-0 transition-all duration-300">
+    <div class="w-10 h-1.5 bg-primary/25 rounded-full mx-auto mb-5 sm:hidden"></div>
+    <h3 class="font-serif text-lg font-semibold mb-4 text-center sm:text-left">Who would you like to call?</h3>
+    <div class="flex flex-col gap-2">
+      <a href="tel:+251911234567" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
+        <span><span class="font-medium block">Main Line</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4567</span></span>
+        <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
+      </a>
+      <a href="tel:+251911234568" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
+        <span><span class="font-medium block">Bookings</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4568</span></span>
+        <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
+      </a>
+      <a href="tel:+251911234569" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
+        <span><span class="font-medium block">Support</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4569</span></span>
+        <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
+      </a>
+    </div>
+    <button onclick="closeCallSheet()" class="mt-5 w-full text-center text-sm font-semibold text-ink/60 dark:text-white/60 hover:text-ink dark:hover:text-white py-2">Cancel</button>
+  </div>
+</div>
 <!-- Lightbox -->
 <div id="lightbox" style="display:none;" class="fixed inset-0 z-[70] items-center justify-center bg-ink/90 p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button id="lightbox-close" aria-label="Close" class="absolute top-5 right-5 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
