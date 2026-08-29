@@ -3,17 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fancy Surprise Planner — Bespoke Surprises in Addis Ababa</title>
+<title>Fancy Surprise Planner</title>
 <meta name="description" content="Fancy Surprise Planner designs elegant, personalized surprise experiences in Addis Ababa — proposals, birthdays, new-mom celebrations and more, handled end to end.">
 
-<!-- Theme init: runs before paint to avoid flash of wrong theme -->
+<!-- Theme init: runs before paint to avoid flash of wrong theme. Defaults to light. -->
 <script>
 (function(){
   try{
-    var saved = localStorage.getItem('theme');
-    var isDark = saved ? saved === 'dark' : true; // brand defaults to the dark, plum-toned theme
-    if(isDark) document.documentElement.classList.add('dark');
-  }catch(e){ document.documentElement.classList.add('dark'); }
+    if(localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+  }catch(e){}
 })();
 </script>
 
@@ -116,24 +114,54 @@ tailwind.config = {
   .float-b{ animation: float-slower 11s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){ .float-a, .float-b{ animation: none; } }
 
-  /* ---------- Gallery carousel ---------- */
-  #carousel-viewport{ perspective: 1200px; touch-action: pan-y; }
-  .carousel-slide{
-    position: absolute;
-    top: 50%; left: 50%;
-    border-radius: 1.5rem;
+  /* ---------- Gallery bento grid ---------- */
+  .bento-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 130px;
+    grid-auto-flow: dense;
+    gap: 0.65rem;
+  }
+  @media (min-width: 640px){
+    .bento-grid{ grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; gap: 0.85rem; }
+  }
+  @media (min-width: 1024px){
+    .bento-grid{ grid-template-columns: repeat(6, 1fr); grid-auto-rows: 140px; gap: 1rem; }
+  }
+  /* Varied tile sizes for a bento mosaic feel */
+  .bento-grid .gallery-item:nth-child(6n+1){ grid-column: span 2; grid-row: span 2; }
+  .bento-grid .gallery-item:nth-child(6n+4){ grid-column: span 2; }
+  @media (min-width: 640px){
+    .bento-grid .gallery-item:nth-child(9n+3){ grid-column: span 2; grid-row: span 2; }
+    .bento-grid .gallery-item:nth-child(9n+7){ grid-row: span 2; }
+  }
+  .gallery-item{
+    position: relative;
+    border-radius: 1.1rem;
     overflow: hidden;
-    box-shadow: 0 25px 50px -20px rgba(42,20,32,.45);
-    background-size: cover;
-    background-position: center;
-    transition: transform .6s cubic-bezier(.22,.9,.35,1), opacity .6s cubic-bezier(.22,.9,.35,1), filter .6s ease;
     cursor: pointer;
-    border: 3px solid transparent;
+    box-shadow: 0 8px 30px -14px rgba(42,20,32,.35);
   }
-  .carousel-slide.is-center{
-    border-color: rgba(242,169,204,.9);
+  .gallery-item img{
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .5s cubic-bezier(.22,.9,.35,1);
   }
-  .carousel-track{ position:absolute; inset:0; }
+  .gallery-item:hover img{ transform: scale(1.06); }
+  .gallery-item::after{
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(42,20,32,.35), transparent 45%);
+    opacity: 0; transition: opacity .35s ease;
+  }
+  .gallery-item:hover::after{ opacity: 1; }
+
+  /* ---------- Section entrance (single, subtle — not per element) ---------- */
+  .section-fade{
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .section-fade.is-visible{ opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .section-fade{ opacity: 1 !important; transform: none !important; transition: none !important; } }
 
   /* ---------- Misc ---------- */
   .icon-chip{
@@ -152,13 +180,10 @@ tailwind.config = {
 <header class="fixed top-0 inset-x-0 z-50 px-3 sm:px-4 pt-3 sm:pt-4">
   <div id="site-nav" class="mx-auto w-full max-w-6xl flex items-center justify-between gap-3 rounded-full border border-primary/20 dark:border-primary/25 bg-background-light/80 dark:bg-surface-dark/80 backdrop-blur-xl px-4 sm:px-5 py-2.5">
 
-    <a href="#hero" class="flex items-center gap-2 flex-shrink-0">
-      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-primary/15 text-primary-dark dark:text-primary">
-        <i class="fa-solid fa-gift text-base"></i>
-      </span>
-      <span class="font-script text-lg sm:text-xl leading-none">Fancy Surprise Planner </span>
+    <a href="#hero" class="flex items-center gap-2 flex-shrink-0 min-w-0">
+      <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-16  sm:h-16 w-99 object-contain -my-1">
     </a>
-
+ 
     <nav class="hidden lg:flex items-center gap-7 text-sm font-medium">
       <a href="#hero" class="nav-link active">Home</a>
       <a href="#packages" class="nav-link">Packages</a>
@@ -169,12 +194,10 @@ tailwind.config = {
     </nav>
 
     <div class="flex items-center gap-2 flex-shrink-0">
-      <a href="/loginpage.html" class="hidden sm:inline-flex rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">Login</a>
-      <button aria-label="Toggle color theme" class="flex items-center justify-center rounded-full h-10 w-10 border border-primary/20 dark:border-primary/25 hover:bg-primary/10 dark:hover:bg-primary/15 transition-colors" onclick="toggleTheme()">
-        <span class="material-symbols-outlined text-[20px] dark:hidden">light_mode</span>
-        <span class="material-symbols-outlined text-[20px] hidden dark:inline">dark_mode</span>
-      </button>
-      <button class="lg:hidden flex items-center justify-center rounded-full h-10 w-10 border border-primary/20 dark:border-primary/25" id="hamburger-button" aria-label="Open menu">
+      <a href="tel:+251911234567" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-primary text-ink px-5 py-2 text-sm font-semibold shadow-sm hover:bg-primary-dark hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-[18px]">call</span>Call Us
+      </a>
+      <button class="lg:hidden flex items-center justify-center rounded-full h-9 w-9 sm:h-10 sm:w-10 border border-primary/20 dark:border-primary/25 flex-shrink-0" id="hamburger-button" aria-label="Open menu" aria-expanded="false">
         <span class="material-symbols-outlined text-[20px]">menu</span>
       </button>
     </div>
@@ -184,18 +207,23 @@ tailwind.config = {
 <!-- Mobile drawer -->
 <div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none">
   <div id="mobile-backdrop" class="absolute inset-0 bg-ink/40 dark:bg-black/60 opacity-0 transition-opacity duration-300"></div>
-  <div id="mobile-panel" class="absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-background-light dark:bg-surface-dark shadow-lift p-6 translate-x-full transition-transform duration-300 ease-out flex flex-col">
-    <button class="self-end flex items-center justify-center w-9 h-9 rounded-full border border-primary/20" id="close-button" aria-label="Close menu">
-      <span class="material-symbols-outlined text-[20px]">close</span>
-    </button>
-    <nav class="flex flex-col gap-5 mt-10 text-lg font-medium">
-      <a href="#hero" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Home</a>
-      <a href="#packages" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Packages</a>
-      <a href="#gallery" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Gallery</a>
-      <a href="#about" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">About</a>
-      <a href="#testimonials" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Reviews</a>
-      <a href="#contact" class="mobile-link hover:text-primary-dark dark:hover:text-primary transition-colors">Contact</a>
-      <a href="/loginpage.html" class="mt-3 rounded-full bg-primary text-ink text-center py-3 font-semibold">Login</a>
+  <div id="mobile-panel" class="absolute top-0 right-0 h-full w-80 max-w-[88vw] bg-background-light dark:bg-surface-dark shadow-lift p-6 translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <div class="flex items-center justify-between mb-2">
+      <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-16 w-auto object-contain">
+      <button class="flex items-center justify-center w-9 h-9 rounded-full border border-primary/20" id="close-button" aria-label="Close menu">
+        <span class="material-symbols-outlined text-[20px]">close</span> 
+      </button>
+    </div>
+    <a href="tel:+251911234567" class="mt-6 flex items-center justify-center gap-2 rounded-full bg-primary text-ink text-center py-3.5 font-semibold shadow-soft hover:bg-primary-dark hover:text-white transition-colors">
+      <span class="material-symbols-outlined text-[20px]">call</span>Call Us Now
+    </a>
+    <nav class="flex flex-col mt-8 text-base font-medium divide-y divide-primary/10">
+      <a href="#hero" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">home</span>Home</a>
+      <a href="#packages" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">redeem</span>Packages</a>
+      <a href="#gallery" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">photo_library</span>Gallery</a>
+      <a href="#about" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">info</span>About</a>
+      <a href="#testimonials" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">star</span>Reviews</a>
+      <a href="#contact" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">mail</span>Contact</a>
     </nav>
     <div class="flex items-center gap-3 mt-auto pt-8">
       <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
@@ -211,222 +239,259 @@ tailwind.config = {
   </div>
 </div>
 
+<!-- Persistent mobile call button -->
+<a href="tel:+251911234567" aria-label="Call Fancy Surprise Planner" class="sm:hidden fixed bottom-5 right-5 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink shadow-lift hover:bg-primary-dark hover:text-white transition-colors">
+  <span class="material-symbols-outlined text-2xl">call</span>
+</a>
+
 <main>
 
 <!-- ===================== HERO ===================== -->
-<section id="hero" class="relative flex items-center justify-center min-h-screen pt-32 pb-20 bg-gradient-to-br from-pink-50 via-background-light to-pink-100 dark:from-[#241019] dark:via-background-dark dark:to-[#2f1723] px-6 sm:px-8 lg:px-10 text-center overflow-hidden">
+<section id="hero" class="relative flex items-center min-h-screen pt-36 pb-20 bg-gradient-to-br from-pink-50 via-background-light to-pink-100 dark:from-[#241019] dark:via-background-dark dark:to-[#2f1723] px-6 sm:px-8 lg:px-10 overflow-hidden">
 
   <div class="absolute inset-0 pointer-events-none -z-0 flex items-center justify-center">
     <div class="w-[560px] h-[560px] rounded-full blur-3xl opacity-30 bg-primary/25"></div>
   </div>
-  <div class="absolute top-28 left-[8%] text-primary/40 dark:text-primary/30 float-a pointer-events-none hidden sm:block">
+  <div class="absolute top-28 left-[6%] text-primary/40 dark:text-primary/30 float-a pointer-events-none hidden lg:block">
     <span class="material-symbols-outlined text-4xl">auto_awesome</span>
   </div>
-  <div class="absolute bottom-24 right-[10%] text-gold/50 float-b pointer-events-none hidden sm:block">
+  <div class="absolute bottom-24 right-[6%] text-gold/50 float-b pointer-events-none hidden sm:block">
     <span class="material-symbols-outlined text-5xl">star</span>
   </div>
-  <div class="absolute top-1/3 right-[6%] text-primary/30 float-b pointer-events-none hidden md:block">
-    <i class="fa-solid fa-gift text-3xl"></i>
-  </div>
 
-  <div class="relative max-w-2xl mx-auto flex flex-col items-center gap-5 px-4">
+  <div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
- 
+    <div class="flex flex-col items-center lg:items-start text-center lg:text-left gap-5">
+      <h2 data-reveal style="--d:0.1s" class="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.08] tracking-tight">
+        Every Surprise, <span class="italic text-primary-dark dark:text-primary">A Masterpiece</span>
+      </h2>
 
-    <h2 data-reveal style="--d:0.1s" class="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.08] tracking-tight">
-      Every Surprise, <span class="italic text-primary-dark dark:text-primary">A Masterpiece</span>
-    </h2>
+      <p data-reveal style="--d:0.22s" class="text-base sm:text-lg text-ink/70 dark:text-white/70 max-w-xl">
+        We craft beautiful personalized moments and elegant setup for an unforgettable experience.
+      </p>
 
-    <p data-reveal style="--d:0.22s" class="text-base sm:text-lg text-ink/70 dark:text-white/70 max-w-xl">
-      We craft beautiful personalized moments and elegant setup for an unforgettable experience.
-    </p>   
+      <div data-reveal style="--d:0.34s" class="mt-4 flex justify-center lg:justify-start gap-4 flex-wrap">
+        <a href="#packages" class="rounded-full bg-primary text-ink px-7 py-3 text-sm sm:text-base font-semibold shadow-soft hover:-translate-y-0.5 hover:shadow-lift transition-all duration-300">
+          Explore Packages
+        </a>
+        <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
+          <i class="fa-brands fa-tiktok mr-2"></i>Watch on TikTok
+        </a>
+      </div>
 
-    <div data-reveal style="--d:0.34s" class="mt-4 flex justify-center gap-4 flex-wrap">
-      <a href="#packages" class="rounded-full bg-primary text-ink px-7 py-3 text-sm sm:text-base font-semibold shadow-soft hover:-translate-y-0.5 hover:shadow-lift transition-all duration-300">
-        Explore Packages
-      </a>
-      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
-        See Our TikTok <i class="fa-solid fa-arrow-right ml-2 text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
-      </a>
+      <div data-reveal style="--d:0.46s" class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-3 text-sm text-ink/60 dark:text-white/60">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">celebration</span>200+ surprises planned</div>
+        <!-- <div class="flex items-center gap-2"><span class="material-symbols-outlined text-gold text-[20px]">star</span>5.0 average rating</div> -->
+      </div>
     </div>
 
-    <!-- <div data-reveal style="--d:0.46s" class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-sm text-ink/60 dark:text-white/60">
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">celebration</span>150+ surprises planned</div>
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-gold text-[20px]">star</span>5.0 average rating</div>
-      <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px]">favorite</span>Made for every occasion</div>
-    </div> -->
+    <div data-reveal="scale" style="--d:0.2s" class="relative h-[380px] sm:h-[440px] lg:h-[500px] hidden sm:block">
+      <div class="absolute top-0 left-[6%] w-[62%] h-[68%] rounded-[1.75rem] overflow-hidden shadow-lift border-4 border-background-light dark:border-surface-dark rotate-[-3deg]">
+        <img src="/assets/photo_2026-08-27_15-32-59.jpg" alt="Fairy-light birthday setup by Fancy Surprise Planner" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute bottom-0 right-[4%] w-[56%] h-[58%] rounded-[1.75rem] overflow-hidden shadow-lift border-4 border-background-light dark:border-surface-dark rotate-[4deg]">
+        <img src="/gallery/photo_21_2026-08-26_19-14-59.jpg" alt="Romantic candlelight table setup" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute top-[22%] right-[2%] w-[38%] h-[34%] rounded-[1.5rem] overflow-hidden shadow-lift border-4 border-background-light dark:border-surface-dark rotate-[6deg] hidden lg:block">
+        <img src="/gallery/photo_6_2026-08-26_19-14-59.jpg" alt="Wrapped gift box" class="w-full h-full object-cover">
+      </div>
+      <div class="absolute bottom-6 left-0 bg-background-light dark:bg-surface-dark border border-primary/20 rounded-2xl shadow-lift px-5 py-3.5 flex items-center gap-3">
+        <span class="material-symbols-outlined text-2xl text-primary-dark dark:text-primary">favorite</span>
+        <div class="text-left leading-tight">
+          <p class="font-serif text-base font-semibold">3+ Years</p>
+          <p class="text-xs text-ink/55 dark:text-white/55">crafting surprises</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ===================== PACKAGES ===================== -->
-<section id="packages" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-  <div class="text-center max-w-2xl mx-auto mb-16" data-reveal style="--d:0s">
-    <p class="text-x font-semibold tracking-[0.3em] uppercase text-primary-dark dark:text-primary mb-5">Our  Packages</p>
-    <!-- <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Choose your level of magic</h2> -->
-    <!-- <p class="mt-4 text-ink/65 dark:text-white/65">Every package includes a free consultation call and full setup &amp; cleanup — pick the scale that fits your celebration.</p> -->
+<section id="packages" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-16">
+    <p class="text-sm font-semibold tracking-[0.3em] uppercase text-primary-dark dark:text-primary mb-5">Our Packages</p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">ARAS PACKAGES</h2> 
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
     <!-- Silver -->
-    <div data-reveal style="--d:0.05s" class="flex flex-col rounded-2xl p-8 border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <div class="flex items-center justify-between mb-6">
-        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Silver</span>
-        <i class="fa-solid fa-gift text-xl text-primary-dark/70 dark:text-primary/70"></i>
+    <div class="flex flex-col rounded-2xl overflow-hidden border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="h-44 overflow-hidden">
+        <img src="https://images.pexels.com/photos/3905885/pexels-photo-3905885.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Silver package decor preview" class="w-full h-full object-cover">
       </div>
-      <p class="font-serif text-4xl font-semibold">15,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
-      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">A refined, essential setup</p>
-      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
-      </ul>
-      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Silver</a> -->
+      <div class="flex flex-col flex-1 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Silver</span>
+          <i class="fa-solid fa-gift text-xl text-primary-dark/70 dark:text-primary/70"></i>
+        </div>
+        <p class="font-serif text-4xl font-semibold">15,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+        <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">A refined, essential setup</p>
+        <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+        </ul>
+        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Silver</a>
+      </div>
     </div>
 
     <!-- Golden -->
-    <div data-reveal style="--d:0.15s" class="flex flex-col rounded-2xl p-8 border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <div class="flex items-center justify-between mb-6">
-        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Golden</span>
-        <i class="fa-solid fa-gift text-2xl text-primary-dark/70 dark:text-primary/70"></i>
+    <div class="flex flex-col rounded-2xl overflow-hidden border border-primary/20 dark:border-primary/20 bg-white/70 dark:bg-white/[0.04] shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="h-44 overflow-hidden">
+        <img src="https://images.pexels.com/photos/16220888/pexels-photo-16220888.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Golden package decor preview" class="w-full h-full object-cover">
       </div>
-      <p class="font-serif text-4xl font-semibold">20,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
-      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">Our most well-rounded celebration</p>
-      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
-      </ul>
-      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Golden</a> -->
+      <div class="flex flex-col flex-1 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-ink/50 dark:text-white/50">Golden</span>
+          <i class="fa-solid fa-gift text-2xl text-primary-dark/70 dark:text-primary/70"></i>
+        </div>
+        <p class="font-serif text-4xl font-semibold">20,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+        <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">Our most well-rounded celebration</p>
+        <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+        </ul>
+        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Golden</a>
+      </div>
     </div>
 
     <!-- Platinum - most popular -->
-    <div data-reveal style="--d:0.25s" class="relative flex flex-col rounded-2xl p-8 border-2 border-primary bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/[0.08] shadow-lift lg:-translate-y-3">
-      <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-ink px-4 py-1.5 rounded-full text-xs font-bold shadow-soft flex items-center gap-1.5">
+    <div class="relative flex flex-col rounded-2xl overflow-hidden border-2 border-primary bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/[0.08] shadow-lift lg:-translate-y-3">
+      <div class="absolute top-3.5 left-1/2 -translate-x-1/2 z-10 bg-primary text-ink px-4 py-1.5 rounded-full text-xs font-bold shadow-soft flex items-center gap-1.5">
         <span class="material-symbols-outlined text-[16px]">auto_awesome</span>Most Popular
       </div>
-      <div class="flex items-center justify-between mb-6 mt-2">
-        <span class="text-xs font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary">Platinum</span>
-        <i class="fa-solid fa-gift text-3xl text-primary-dark dark:text-primary"></i>
+      <div class="h-44 overflow-hidden">
+        <img src="https://images.pexels.com/photos/37296139/pexels-photo-37296139.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Platinum package decor preview" class="w-full h-full object-cover">
       </div>
-      <p class="font-serif text-4xl font-semibold">25,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
-      <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">The full, unforgettable experience</p>
-      <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Full decor &amp; lighting (2 weeks)</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Priority booking</li>
-        <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
-      </ul>
-      <!-- <a href="#contact" class="mt-8 inline-flex justify-center rounded-full bg-primary text-ink px-6 py-3 font-semibold text-sm shadow-soft hover:bg-primary-dark hover:text-white transition-colors">Choose Platinum</a> -->
+      <div class="flex flex-col flex-1 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary">Platinum</span>
+          <i class="fa-solid fa-gift text-3xl text-primary-dark dark:text-primary"></i>
+        </div>
+        <p class="font-serif text-4xl font-semibold">25,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
+        <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">The full, unforgettable experience</p>
+        <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Full decor &amp; lighting (2 weeks)</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Priority booking</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+        </ul>
+        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full bg-primary text-ink px-6 py-3 font-semibold text-sm shadow-soft hover:bg-primary-dark hover:text-white transition-colors">Choose Platinum</a>
+      </div>
     </div>
 
   </div>
 </section>
 
 <!-- ===================== GALLERY ===================== -->
-<section id="gallery" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 overflow-hidden">
-  <div class="text-center max-w-2xl mx-auto mb-14" data-reveal style="--d:0s">
+<section id="gallery" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-14">
     <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">Gallery</p>
-    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Watch Our Work</h2> 
-    <!-- <p class="mt-4 text-ink/65 dark:text-white/65">Drag, or just watch it drift — tap any photo to bring it front and center.</p> -->
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Watch Our Work</h2>
+    <p class="mt-4 text-ink/65 dark:text-white/65">Tap any photo for a closer look.</p> 
   </div>
 
-  <div data-reveal style="--d:0.1s" class="relative">
-    <div id="carousel-viewport" class="relative h-[240px] xs:h-[280px] sm:h-[340px] md:h-[400px] select-none" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Event gallery">
-      <div id="carousel-track" class="carousel-track"></div>
-    </div>
-
-    <button id="carousel-prev" aria-label="Previous photo" class="absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background-light dark:bg-surface-dark border border-primary/25 shadow-soft hover:bg-primary/10 transition-colors">
-      <span class="material-symbols-outlined">chevron_left</span>
-    </button>
-    <button id="carousel-next" aria-label="Next photo" class="absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background-light dark:bg-surface-dark border border-primary/25 shadow-soft hover:bg-primary/10 transition-colors">
-      <span class="material-symbols-outlined">chevron_right</span>
-    </button>
-
-    <div id="carousel-dots" class="flex justify-center gap-2 mt-8"></div>
+  <div id="gallery-grid" class="bento-grid">
+    <!-- Gallery items injected by script for easy lightbox wiring -->
   </div>
 </section>
 
+<!-- Lightbox -->
+<div id="lightbox" style="display:none;" class="fixed inset-0 z-[70] items-center justify-center bg-ink/90 p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lightbox-close" aria-label="Close" class="absolute top-5 right-5 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <button id="lightbox-prev" aria-label="Previous photo" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <span class="material-symbols-outlined">chevron_left</span>
+  </button>
+  <img id="lightbox-img" src="" alt="" class="max-w-full max-h-full rounded-2xl shadow-lift object-contain">
+  <button id="lightbox-next" aria-label="Next photo" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <span class="material-symbols-outlined">chevron_right</span>
+  </button>
+</div>
+
 <!-- ===================== ABOUT ===================== -->
-<section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+<section id="about" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
-    <div data-reveal style="--d:0s" class="relative order-2 lg:order-1">
+    <div class="relative order-2 lg:order-1">
       <div class="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-primary/15 -z-10 rotate-2"></div>
       <div class="rounded-[1.75rem] overflow-hidden shadow-lift aspect-[4/3]">
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGSyG042qt7f26yrstibSi1kD4RiEB4sOErGY8AWgQaap9Einky1CXQW_bm7r4QHyhEbOV8wtGL0OsXY2TP-GS-RLFLh5IEs0QRq0uXpGudBxG34k62ffIJYOJB6IX5p3j7diYRW9Jb_Y9uQC1aKH3GvByamj-XYbFmAD16yY_8tDjb9HBf4XBNU0ufoW4Yec2ooWyKbQIPEZyMa9uwjEIvILEBeHKoOLk6h0DeAaehyCbm2VewfRKxgyMBySYlHEV314DEHgxx0E" alt="A beautifully decorated surprise setup by Fancy Surprise Planner" class="w-full h-full object-cover">
+        <img src="/assets/photo_1_2026-08-26_19-14-58.jpg" alt="A beautifully decorated surprise setup by Fancy Surprise Planner" class="w-full h-full object-cover">
       </div>
       <div class="absolute -bottom-6 -right-4 sm:-right-8 bg-background-light dark:bg-surface-dark border border-primary/20 rounded-2xl shadow-lift px-5 py-4 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl text-primary-dark dark:text-primary">favorite</span>
         <div class="text-left leading-tight">
-          <p class="font-serif text-lg font-semibold">3+ Years</p>
+          <p class="font-serif text-lg font-semibold">2+ Years</p> 
           <p class="text-xs text-ink/55 dark:text-white/55">crafting surprises</p>
         </div>
       </div>
     </div>
 
     <div class="order-1 lg:order-2">
-      <p data-reveal style="--d:0s" class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">About Us</p>
-      <h2 data-reveal style="--d:0.05s" class="font-serif text-3xl sm:text-4xl font-semibold mb-5">Why choose Fancy Surprise Planner</h2>
-      <p data-reveal style="--d:0.1s" class="text-ink/70 dark:text-white/70 leading-relaxed mb-9">
-        We're all about creating moments that make people feel truly special. Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences — especially for new moms and other milestone occasions. From concept to final setup, we handle everything with care and creativity.
+      <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">About Us</p>
+      <h2 class="font-serif text-3xl sm:text-4xl font-semibold mb-5">Why choose Fancy Surprise Planner</h2>
+      <p class="text-ink/70 dark:text-white/70 leading-relaxed mb-9">
+        We're all about creating moments that make people feel truly special. Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences.Especially for new moms and other milestone occasions.
       </p>
 
-      <div class="flex flex-col gap-1">
-        <div data-reveal style="--d:0.15s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+      <!-- <div class="flex flex-col gap-1">
+        <div class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
           <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">auto_awesome</span></span>
           <div>
             <h3 class="font-semibold text-sm sm:text-base">Creative Designs</h3>
             <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Unique and innovative surprise concepts</p>
           </div>
         </div>
-        <div data-reveal style="--d:0.2s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+        <div class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
           <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">favorite</span></span>
           <div>
             <h3 class="font-semibold text-sm sm:text-base">Personalized Touch</h3>
             <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Tailored to your preferences and story</p>
           </div>
         </div>
-        <div data-reveal style="--d:0.25s" class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
+        <div class="about-row flex items-center gap-4 py-3.5 border-b border-primary/15">
           <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">event_available</span></span>
           <div>
             <h3 class="font-semibold text-sm sm:text-base">Seamless Planning</h3>
             <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Stress-free execution from start to finish</p>
           </div>
         </div>
-        <div data-reveal style="--d:0.3s" class="about-row flex items-center gap-4 py-3.5">
+        <div class="about-row flex items-center gap-4 py-3.5">
           <span class="icon-chip flex items-center justify-center w-11 h-11 rounded-full bg-primary/15 text-primary-dark dark:text-primary flex-shrink-0"><span class="material-symbols-outlined text-[22px]">groups</span></span>
           <div>
             <h3 class="font-semibold text-sm sm:text-base">Dedicated Team</h3>
             <p class="text-xs sm:text-sm text-ink/55 dark:text-white/55">Passionate professionals committed to excellence</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
   </div>
 </section>
 
 <!-- ===================== TESTIMONIALS ===================== -->
-<section id="testimonials" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-  <div class="text-center max-w-2xl mx-auto mb-14" data-reveal style="--d:0s">
+<section id="testimonials" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-14">
     <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">Testimonials</p>
     <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Loved by the people we've surprised</h2>
-    <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-sm font-semibold">
+    <!-- <div class="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1.5 text-sm font-semibold">
       <span class="material-symbols-outlined text-gold text-[18px]">star</span>4.9 average from recent clients
-    </div>
+    </div> -->
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
 
-    <div data-reveal style="--d:0.05s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
       <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
       <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvcj-Gwc0Q4kkMBdjtMivcJWtI71MRsyQb1TvDf9aMjfOaVh5QUT2-YGVfg1Tzi_wysEYZgGMkeW-ygu4QlU366rnaik2gv-Ran_fcOMvKfjIB_uIUgz3waLZZEzcqiDR9V7Svwpu2ugFKHSmahutTdAowOfdxRtCmrLcUmcfBSaMWyBr8p6RooMkJzncBySpIArWiAP2Aa1zh3rnyndMG3RpAUvjm7liqd9_HFRw8WSZy7lnWd-X4ON2Ckb9Jm6ZyUMZi7_QkBCs");'></div>
+        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">S</div>
         <div>
           <p class="font-semibold text-sm">Selamawit</p>
           <p class="text-xs text-ink/50 dark:text-white/50">2 months ago</p>
@@ -438,10 +503,10 @@ tailwind.config = {
       <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner exceeded all my expectations! They created the most magical surprise proposal for my fiancée. The attention to detail was truly remarkable.</p>
     </div>
 
-    <div data-reveal style="--d:0.15s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
       <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
       <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDOxJNFdslB85OrdftZEOTz_s-yqZtxmxqDpQ5x3jU9osEVaIaAgsVO21jN7KsCJv0FpflulmGA1c7rHEO2YOqX-uUVqh1KE520UW2mzhyailQbG9qNlLHINv9t-d2fEXze_Cr-UkexzvwtuniWdXTFaDagChLD-k_Jf8MYsq4IYdFkPeAY9-VoOGFB3w4GSgcBAKRWG8VOD_6nN7ODxv3mFAR25SVuqhrWi_lwmDSQsOvyr6Yxn8SGgCYns7HFIIQQGH_6PStUv8c");'></div>
+        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">A</div>
         <div>
           <p class="font-semibold text-sm">Abebe</p>
           <p class="text-xs text-ink/50 dark:text-white/50">3 months ago</p>
@@ -453,10 +518,10 @@ tailwind.config = {
       <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">I was blown away by the surprise birthday party they organized for my wife. The decorations were stunning and the event flawless. Truly unforgettable!</p>
     </div>
 
-    <div data-reveal style="--d:0.25s" class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
       <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
       <div class="flex items-center gap-3">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-12 h-12 ring-2 ring-primary/25" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXo1LszSPTNF-CcdqgQ9rcnZAtN3I2KDOz5w36y6I1qmx4MvBR5Lm-WirplZ7pmt2fHKLphNaJIMBdBCS6kvWCW-hUkek8Upu9H02Ta9-6sSa6i1UH3Hxito8N0D6eRPXI7f-eqLBIXEaKZ77K2boToBXTixs07hKHggvO6znbINleQup-n7BV3-pHDWspiBBCc8LC7_Fv7I6iimGmT2gqSqIcMaZRpjk-WyHkyoehjW6zpvQq1PUCTYAcrN1AWeLZbwbsrLWOIZI");'></div>
+        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">T</div>
         <div>
           <p class="font-semibold text-sm">Tigist</p>
           <p class="text-xs text-ink/50 dark:text-white/50">5 months ago</p>
@@ -468,18 +533,33 @@ tailwind.config = {
       <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner did a great job with my anniversary celebration. The decor was beautiful, and the team handled everything smoothly despite small hiccups.</p>
     </div>
 
+    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">M</div>
+        <div>
+          <p class="font-semibold text-sm">Meron</p>
+          <p class="text-xs text-ink/50 dark:text-white/50">1 month ago</p>
+        </div>
+      </div>
+      <div class="flex gap-0.5 text-gold">
+        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
+      </div>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Booked the Golden package for my son's first birthday and it was perfect. Communication was easy and everything was set up before we even arrived.</p>
+    </div>
+
   </div>
 </section>
 
 <!-- ===================== CONTACT ===================== -->
-<section id="contact" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-  <div data-reveal style="--d:0s" class="grid grid-cols-1 md:grid-cols-5 rounded-[2rem] overflow-hidden shadow-lift border border-primary/15">
+<section id="contact" class="section-fade max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="grid grid-cols-1 md:grid-cols-5 rounded-[2rem] overflow-hidden shadow-lift border border-primary/15">
 
     <div class="md:col-span-2 bg-ink dark:bg-surface-dark text-white p-9 sm:p-10 flex flex-col justify-between">
       <div>
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary mb-3">Get In Touch</p>
         <h2 class="font-serif text-2xl sm:text-3xl font-semibold mb-4">Let's plan your surprise</h2>
-        <p class="text-white/70 text-sm leading-relaxed">Tell us the occasion and the person — we'll take it from there. We usually reply within a day.</p>
+        <p class="text-white/70 text-sm leading-relaxed">Tell us the occasion and the person we'll take it from there. We usually reply within a day.</p>
       </div>
 
       <div class="mt-10 flex flex-col gap-4 text-sm">
@@ -488,12 +568,12 @@ tailwind.config = {
           Addis Ababa, Ethiopia
         </div>
         <div class="flex items-center gap-3">
-          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">mail</span></span>
-          hello@fancysurpriseplanner.com
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">call</span></span>
+         +251xxxxxxxxxx
         </div>
         <div class="flex items-center gap-3">
-          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">schedule</span></span>
-          Mon – Sat, 9am – 7pm
+          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">call</span></span>
+            +251xxxxxxxxxx
         </div>
       </div>
 
@@ -549,10 +629,7 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
 
     <div class="flex items-center gap-2">
-      <span class="flex items-center justify-center w-9 h-9 rounded-full bg-primary/15 text-primary-dark dark:text-primary">
-        <i class="fa-solid fa-gift text-sm"></i>
-      </span>
-      <span class="font-script text-lg">Fancy Surprise Planner</span>
+      <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-9 w-auto object-contain">
     </div>
 
     <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink/60 dark:text-white/60">
@@ -573,6 +650,11 @@ tailwind.config = {
       <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
         <i class="fa-brands fa-telegram text-sm"></i>
       </a>
+      <span class="w-px h-6 bg-primary/20 mx-1 hidden sm:inline-block"></span>
+      <button aria-label="Toggle dark mode" title="Toggle dark mode" onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <span class="material-symbols-outlined text-[18px] dark:hidden">dark_mode</span>
+        <span class="material-symbols-outlined text-[18px] hidden dark:inline">light_mode</span>
+      </button>
     </div>
   </div>
   <p class="text-center text-xs text-ink/45 dark:text-white/45 mt-8">© 2026 <span class="font-semibold text-primary-dark dark:text-primary">Fancy Surprise Planner</span>. All rights reserved.</p>
@@ -582,7 +664,7 @@ tailwind.config = {
 
 <script>
 /* ============================================================
-   THEME TOGGLE
+   THEME TOGGLE (default is light; button lives in the footer)
 ============================================================ */
 function toggleTheme(){
   document.documentElement.classList.toggle('dark');
@@ -598,18 +680,25 @@ function toggleTheme(){
   const menu = document.getElementById('mobile-menu');
   const backdrop = document.getElementById('mobile-backdrop');
   const panel = document.getElementById('mobile-panel');
+  let isOpen = false;
 
   function openMenu(){
+    isOpen = true;
     menu.classList.remove('pointer-events-none');
+    hamburgerButton.setAttribute('aria-expanded', 'true');
     requestAnimationFrame(() => {
       backdrop.style.opacity = '1';
       panel.style.transform = 'translateX(0)';
     });
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   }
   function closeMenu(){
+    isOpen = false;
     backdrop.style.opacity = '0';
     panel.style.transform = 'translateX(100%)';
+    hamburgerButton.setAttribute('aria-expanded', 'false');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     setTimeout(() => menu.classList.add('pointer-events-none'), 300);
   }
@@ -618,6 +707,15 @@ function toggleTheme(){
   closeButton.addEventListener('click', closeMenu);
   backdrop.addEventListener('click', closeMenu);
   menu.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (e) => { if (isOpen && e.key === 'Escape') closeMenu(); });
+
+  // Safety net: if the viewport is resized/rotated up to desktop width
+  // while the drawer is open, force it closed so it can never sit on
+  // top of (or break) the desktop layout.
+  window.addEventListener('resize', () => {
+    if (isOpen && window.innerWidth >= 1024) closeMenu();
+  });
 })();
 
 /* ============================================================
@@ -645,7 +743,8 @@ function toggleTheme(){
 })();
 
 /* ============================================================
-   UNIFIED REVEAL-ON-SCROLL
+   HERO REVEAL (kept — this is the one place we still want the
+   staggered fade-up entrance)
 ============================================================ */
 (function(){
   const els = document.querySelectorAll('[data-reveal]');
@@ -665,153 +764,128 @@ function toggleTheme(){
 })();
 
 /* ============================================================
-   GALLERY CAROUSEL (coverflow-style, autoplay + drag)
+   SECTION FADE-IN — every other section gets one gentle,
+   single fade+rise as a whole (not a per-element cascade), so
+   it still feels alive without the generic "everything staggers
+   in" scroll-animation look.
 ============================================================ */
 (function(){
-  const images = [
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBGSyG042qt7f26yrstibSi1kD4RiEB4sOErGY8AWgQaap9Einky1CXQW_bm7r4QHyhEbOV8wtGL0OsXY2TP-GS-RLFLh5IEs0QRq0uXpGudBxG34k62ffIJYOJB6IX5p3j7diYRW9Jb_Y9uQC1aKH3GvByamj-XYbFmAD16yY_8tDjb9HBf4XBNU0ufoW4Yec2ooWyKbQIPEZyMa9uwjEIvILEBeHKoOLk6h0DeAaehyCbm2VewfRKxgyMBySYlHEV314DEHgxx0E",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDR5PoLTIg5XLPaiHw_kB36V68DDY0otmLPo5XBNwDEP8YoKBdUrNzqI2HeEgDkLJ8fnBFRIqdppLxTwwqXtYwI-UAM0PJ0iKrDdgJrGduQIaI56D17Rmh1g-RMbtAIpDrUfhoZhnh6FhOauB1kgUBXyZkQSMeCnOj0b952itKNIprdNZYQee5mgONx24_TFsC4Fq8eJayu6702h3Lww2_BXTB6xUyyTBv8oLHXM5sM8VpYUj443qyfpomOIWzJm39LDbi2V7jBOK0",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBrlVNBObPO9mu9U9A4GVDojve2o0Pl6KWlmtHCykP3jva-beGi9S3EGvh_HvlBnM46GFp2kRpvt33Hx_punHlr1qg21Nn8cdmEW_-qsPFWZZrQmdA66QflDlvs7h1G5jSvQeG_xw6wd6kA05pG_5cXjWd0_ysAMosas2my9OwHVzeyjs8X9_NXdGSZQjOZpSElMoOu1-yp16trrvJpMmxdnMoO0pc2bR6fnyF5-AlwcvNtxOo0V32BhletT4tYvsSN0KJqpaWvR6w",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuCjFNSYSnIQ_9SIHbZB-Q3yFAsobxf1vD1zn7mTjQURFwNJWjM091qCstKaFqkMSRLWE581QiqMOh0D7XfR3l2AAgh-i8G7xxgocoUc0uIHCtHuUe1m9SIG4J2Z7TC0qGbHeOQFl7LFNl0XDEMHtruvG5TtMswPplZhSDQuJ8_c8EZhbTVH3aN5LfgAQtdKgb_IeOVbTXs2-HbeirGmrll077a0vi6Vx5HzSepwjr_BQuitbwKzt6vJ6l_M0hHjwAn-rSf5fws_6Cs",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuC1iIZMtacA952xx0jZ_KiOSw-_70T5EBPMs-q7Re5JeblLZJTGbt1jQHpKSM36Ri4pqP_ykWE9z7ICsA-216sB-amzJxtH0y4ncYOI19do_I1mvyHVG3noAZdJA4X1fk0XOCZb3x2AYBUi2J69Nxs1SJfM9jcu8wASkaiTNHe-h6md5c9Xn_OV_DheWTiI0B3456xWPdgWzgnXxABx11t1yjLTWAcwyiBUXujyx8N1HK3Jnkzq9bIHVjsnmT_Z8Nw6q6r3fR6fZ7g",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAxnL60lk6cQR23vBgo7SVVdfWOkbXeNrFUYE5uBWZCSDs6J5gFREBvkNEuxoArl4hhXJj0BICZbTe8qZSI0C9Y5DVvkb0G1cc6Bf_5Gl0lwBax8z0tH59H_85pgZ_YPB0RWA7NK6BwyYGGONJuV-O5nDoWRe5_yPSF04odXa33J7HVaBL1mDMPICXMla6tMddo8O7W1I7F1AXU0vqKdoC_h-E0pZt64qOdPrPdj8VtoPp0t7Nl6hhhKrR1d8AsoGzH1ry0pxW9Ynk"
+  const els = document.querySelectorAll('.section-fade');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ============================================================
+   GALLERY (bento grid, loaded from /gallery) + LIGHTBOX
+   -----------------------------------------------------------
+   Drop your photos into the "gallery" folder next to index.html
+   and list their filenames in gallery/manifest.json — see the
+   README inside that folder. If the manifest can't be found
+   (e.g. you haven't added photos yet), a curated set of stock
+   placeholder photos is shown instead so the section is never
+   empty.
+============================================================ */
+(function(){
+  const FALLBACK_IMAGES = [
+    { src: "https://images.pexels.com/photos/32370538/pexels-photo-32370538.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Vibrant kids party decor with colorful balloons" },
+    { src: "https://images.pexels.com/photos/7548036/pexels-photo-7548036.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Balloon and fairy-light birthday setup" },
+    { src: "https://images.pexels.com/photos/11160491/pexels-photo-11160491.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Candlelight dinner table setup" },
+    { src: "https://images.pexels.com/photos/4397879/pexels-photo-4397879.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Pink wrapped gift box with ribbon" },
+    { src: "https://images.pexels.com/photos/16930510/pexels-photo-16930510.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Outdoor table set with balloons for a birthday" },
+    { src: "https://images.pexels.com/photos/37296139/pexels-photo-37296139.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Elegant birthday balloon arch decor" },
+    { src: "https://images.pexels.com/photos/3905885/pexels-photo-3905885.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Pastel balloon arrangement" },
+    { src: "https://images.pexels.com/photos/28059316/pexels-photo-28059316.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Luxury table setting with candles and glassware" },
+    { src: "https://images.pexels.com/photos/37803982/pexels-photo-37803982.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Elegant outdoor event decoration with balloons" },
+    { src: "https://images.pexels.com/photos/10651682/pexels-photo-10651682.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Pastel balloon arch centerpiece" },
+    { src: "https://images.pexels.com/photos/4397882/pexels-photo-4397882.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Ribbon-wrapped gift box" },
+    { src: "https://images.pexels.com/photos/34593866/pexels-photo-34593866.jpeg?auto=compress&cs=tinysrgb&w=1000", alt: "Colorful birthday celebration with balloons" }
   ];
 
-  const viewport = document.getElementById('carousel-viewport');
-  const track = document.getElementById('carousel-track');
-  const dotsWrap = document.getElementById('carousel-dots');
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const N = images.length;
+  const grid = document.getElementById('gallery-grid');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  let images = [];
   let current = 0;
-  let autoplayTimer = null;
-  let isPointerDown = false;
-  let startX = 0;
-  let dragDelta = 0;
 
-  const slides = images.map((src, i) => {
-    const el = document.createElement('button');
-    el.type = 'button';
-    el.className = 'carousel-slide';
-    el.style.backgroundImage = `url("${src}")`;
-    el.setAttribute('aria-label', `View photo ${i + 1} of ${N}`);
-    el.addEventListener('click', () => { if (i !== current) { goTo(i); restartAutoplay(); } });
-    track.appendChild(el);
-    return el;
-  });
-
-  const dots = images.map((_, i) => {
-    const d = document.createElement('button');
-    d.type = 'button';
-    d.setAttribute('aria-label', `Go to photo ${i + 1}`);
-    d.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-primary/25';
-    d.addEventListener('click', () => { goTo(i); restartAutoplay(); });
-    dotsWrap.appendChild(d);
-    return d;
-  });
-
-  function shortestDiff(idx, cur){
-    let diff = idx - cur;
-    if (diff > N / 2) diff -= N;
-    if (diff < -N / 2) diff += N;
-    return diff;
+  function humanize(filename){
+    return filename
+      .replace(/\.[a-zA-Z0-9]+$/, '')
+      .replace(/[-_]+/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
   }
 
-  function layout(){
-    const vw = viewport.clientWidth;
-    const slideWidth = Math.max(160, Math.min(420, vw * 0.5));
-    const slideHeight = viewport.clientHeight * 0.86;
-    const offsetPx = slideWidth * 0.62;
-
-    slides.forEach((el, i) => {
-      const diff = shortestDiff(i, current);
-      const abs = Math.abs(diff);
-      const scale = diff === 0 ? 1 : abs === 1 ? 0.74 : 0.55;
-      const opacity = abs > 2 ? 0 : diff === 0 ? 1 : abs === 1 ? 0.85 : 0.5;
-      const z = 10 - abs;
-
-      el.style.width = slideWidth + 'px';
-      el.style.height = slideHeight + 'px';
-      el.style.zIndex = z;
-      el.style.opacity = opacity;
-      el.style.pointerEvents = abs > 2 ? 'none' : 'auto';
-      el.classList.toggle('is-center', diff === 0);
-      el.style.transform = `translate(-50%, -50%) translateX(${diff * offsetPx}px) scale(${scale})`;
-    });
-
-    dots.forEach((d, i) => {
-      d.className = 'rounded-full transition-all duration-300 ' + (i === current
-        ? 'w-6 h-2 bg-primary'
-        : 'w-2 h-2 bg-primary/25 hover:bg-primary/50');
+  function renderGrid(){
+    grid.innerHTML = '';
+    images.forEach((img, i) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'gallery-item';
+      item.setAttribute('aria-label', `Open photo ${i + 1} of ${images.length}`);
+      item.innerHTML = `<img src="${img.src}" alt="${img.alt}" loading="lazy">`;
+      item.addEventListener('click', () => openLightbox(i));
+      grid.appendChild(item);
     });
   }
 
-  function goTo(i){
-    current = ((i % N) + N) % N;
-    layout();
+  function openLightbox(i){
+    current = i;
+    updateLightbox();
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
   }
-  function next(){ goTo(current + 1); }
-  function prev(){ goTo(current - 1); }
-
-  function startAutoplay(){
-    if (reducedMotion) return;
-    stopAutoplay();
-    autoplayTimer = setInterval(next, 4200);
+  function closeLightbox(){
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
   }
-  function stopAutoplay(){
-    if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+  function updateLightbox(){
+    const full = images[current].full || images[current].src;
+    lightboxImg.src = full;
+    lightboxImg.alt = images[current].alt;
   }
-  function restartAutoplay(){ startAutoplay(); }
+  function next(){ current = (current + 1) % images.length; updateLightbox(); }
+  function prev(){ current = (current - 1 + images.length) % images.length; updateLightbox(); }
 
-  prevBtn.addEventListener('click', () => { prev(); restartAutoplay(); });
-  nextBtn.addEventListener('click', () => { next(); restartAutoplay(); });
-
-  viewport.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') { prev(); restartAutoplay(); }
-    if (e.key === 'ArrowRight') { next(); restartAutoplay(); }
+  closeBtn.addEventListener('click', closeLightbox);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.style.display !== 'flex') return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
   });
 
-  viewport.addEventListener('mouseenter', stopAutoplay);
-  viewport.addEventListener('mouseleave', startAutoplay);
-  viewport.addEventListener('focusin', stopAutoplay);
-  viewport.addEventListener('focusout', startAutoplay);
-
-  viewport.addEventListener('pointerdown', (e) => {
-    isPointerDown = true;
-    startX = e.clientX;
-    dragDelta = 0;
-    stopAutoplay();
-    viewport.setPointerCapture(e.pointerId);
-  });
-  viewport.addEventListener('pointermove', (e) => {
-    if (!isPointerDown) return;
-    dragDelta = e.clientX - startX;
-    track.style.transform = `translateX(${dragDelta * 0.5}px)`;
-  });
-  function endDrag(){
-    if (!isPointerDown) return;
-    isPointerDown = false;
-    track.style.transform = '';
-    const threshold = 55;
-    if (dragDelta > threshold) prev();
-    else if (dragDelta < -threshold) next();
-    else layout();
-    dragDelta = 0;
-    restartAutoplay();
-  }
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAutoplay(); else startAutoplay();
-  });
-
-  window.addEventListener('resize', layout);
-
-  layout();
-  startAutoplay();
+  // Try to load real photos from gallery/manifest.json first.
+  fetch('gallery/manifest.json', { cache: 'no-store' })
+    .then(res => { if (!res.ok) throw new Error('no manifest'); return res.json(); })
+    .then(list => {
+      if (!Array.isArray(list) || list.length === 0) throw new Error('empty manifest');
+      images = list.map(name => ({
+        src: `gallery/${name}`,
+        full: `gallery/${name}`,
+        alt: humanize(name)
+      }));
+      renderGrid();
+    })
+    .catch(() => {
+      images = FALLBACK_IMAGES.map(img => ({ ...img, full: img.src.replace('w=1000', 'w=1600') }));
+      renderGrid();
+    });
 })();
 </script>
 
