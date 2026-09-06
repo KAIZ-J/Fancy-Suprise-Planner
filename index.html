@@ -172,6 +172,25 @@ tailwind.config = {
   .about-row:hover .icon-chip{ transform: scale(1.12) rotate(-6deg); }
 
   input:focus, textarea:focus{ outline: none; }
+  /* ---------- FAQ accordion ---------- */
+.faq-item summary::-webkit-details-marker{ display:none; }
+
+.faq-chevron{
+  transition: transform .35s cubic-bezier(.22,.9,.35,1);
+}
+.faq-item[open] .faq-chevron{ transform: rotate(180deg); }
+
+.faq-answer{
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .55s ease, opacity .3s ease;
+}
+.faq-answer > p{ overflow: hidden; } 
+.faq-item[open] .faq-answer{
+  grid-template-rows: 1fr;
+  opacity: 1;
+} 
 </style>
 </head>
 
@@ -192,6 +211,7 @@ tailwind.config = {
       <a href="#gallery" class="nav-link">Gallery</a>
       <a href="#about" class="nav-link">About</a>
       <a href="#testimonials" class="nav-link">Reviews</a>
+      <a href="#faq" class="nav-link">FAQs</a>
       <a href="#contact" class="nav-link">Contact</a>
     </nav>
 
@@ -224,7 +244,8 @@ tailwind.config = {
       <a href="#packages" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">redeem</span>Packages</a>
       <a href="#gallery" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">photo_library</span>Gallery</a>
       <a href="#about" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">info</span>About</a>
-      <a href="#testimonials" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">star</span>Reviews</a>
+      <a href="#testimonials" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">star</span>Reviews</a> 
+      <a href="#faq" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">help</span>FAQs</a> 
       <a href="#contact" class="mobile-link flex items-center gap-3.5 py-3.5 hover:text-primary-dark dark:hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px] text-primary-dark dark:text-primary">mail</span>Contact</a>
     </nav>
     <div class="flex items-center gap-3 mt-auto pt-8">
@@ -279,9 +300,9 @@ tailwind.config = {
         <a href="#packages" class="rounded-full bg-primary text-ink px-7 py-3 text-sm sm:text-base font-semibold shadow-soft hover:-translate-y-0.5 hover:shadow-lift transition-all duration-300">
           Explore Packages
         </a>
-        <!-- <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
-          <i class="fa-brands fa-tiktok mr-2"></i>Watch on TikTok
-        </a> -->
+        <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" class="group rounded-full border border-primary/50 text-primary-dark dark:text-primary px-7 py-3 text-sm sm:text-base font-semibold hover:bg-primary/10 transition-all duration-300 inline-flex items-center">
+          <i class="fa-brands fa-tiktok mr-2"></i>Watch Our Setups
+        </a>
       </div>
 
       <!-- <div data-reveal style="--d:0.46s" class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-3 text-sm text-ink/60 dark:text-white/60">
@@ -315,7 +336,7 @@ tailwind.config = {
 <section id="packages" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
   <div class="text-center max-w-2xl mx-auto mb-16">
     <p class="text-sm font-semibold tracking-[0.3em] uppercase text-primary-dark dark:text-primary mb-5">Our Packages</p>
-    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">ARAS PACKAGES</h2> 
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">ARAS &amp  NEW MOTHER CELEBRATION PACKAGES</h2> 
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
@@ -331,14 +352,14 @@ tailwind.config = {
           <i class="fa-solid fa-gift text-xl text-primary-dark/70 dark:text-primary/70"></i>
         </div>
         <p class="font-serif text-4xl font-semibold">15,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
-        <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">A refined, essential setup</p>
+        <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">A classic setup</p>  
         <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup</li> 
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom decoration</li>
           <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Korridor Decoration</li>
         </ul>
-        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Silver</a>
+        <a href="https://t.me/fancysurprise12?text=Hi!%20I'm%20interested%20in%20booking%20the%20Silver%20Package%20"  class="mt-8 sm:inline-flex items-center gap-2 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors" target="_blank"> <i class="fa-brands fa-telegram text-sm"></i> <span>Chat on Telegram</span></a> 
       </div>
     </div>
 
@@ -355,13 +376,15 @@ tailwind.config = {
         <p class="font-serif text-4xl font-semibold">20,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
         <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">Our most well-rounded celebration</p>
         <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom &amp; corridor decor</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Free consultation call</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+            <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Korridor Decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Normal Torta 2KG cake</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet</li> 
         </ul>
-        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors">Choose Golden</a>
+        <a href="https://t.me/fancysurprise12?text=Hi!%20I'm%20interested%20in%20booking%20the%20Golden%20Package%20"  class="mt-8 sm:inline-flex items-center gap-2 inline-flex justify-center rounded-full border border-primary/40 text-primary-dark dark:text-primary px-6 py-3 font-semibold text-sm hover:bg-primary/10 transition-colors" target="_blank"> <i class="fa-brands fa-telegram text-sm"></i> <span>Chat on Telegram</span></a>  
+       
       </div>
     </div>
 
@@ -381,16 +404,44 @@ tailwind.config = {
         <p class="font-serif text-4xl font-semibold">25,000 <span class="text-lg font-sans font-medium text-ink/50 dark:text-white/50">Br</span></p>
         <p class="text-sm text-ink/55 dark:text-white/55 mt-1 mb-7">The full, unforgettable experience</p>
         <ul class="space-y-3 text-sm text-ink/80 dark:text-white/80 flex-1">
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Full decor &amp; lighting (2 weeks)</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet &amp; floor decor</li>
           <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Priority booking</li>
-          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Setup &amp; cleanup included</li>
+                      <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Full Decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Bedroom decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Floor decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Korridor Decoration</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Custom 2KG cake</li>
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Flower bouquet</li> 
+          <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-primary-dark dark:text-primary text-[20px] mt-0.5">check_circle</span>Agober(Canopy) &amp Lighting (2 weeks)</li> 
         </ul>
-        <a href="#contact" class="mt-8 inline-flex justify-center rounded-full bg-primary text-ink px-6 py-3 font-semibold text-sm shadow-soft hover:bg-primary-dark hover:text-white transition-colors">Choose Platinum</a>
+        <a href="https://t.me/fancysurprise12?text=Hi!%20I'm%20interested%20in%20booking%20the%20Platinium%20Package%20"  class="mt-8 sm:inline-flex items-center gap-2 inline-flex justify-center rounded-full bg-primary text-ink px-6 py-3 font-semibold text-sm shadow-soft hover:bg-primary-dark hover:text-white transition-colors" target="_blank"> <i class="fa-brands fa-telegram text-sm"></i> <span>Chat on Telegram</span></a> 
       </div>
     </div>
 
+  </div>
+    <!-- Special occasions banner -->
+  <div class="relative overflow-hidden rounded-3xl bg-ink dark:bg-surface-dark text-white mt-10 px-8 sm:px-12 py-10 sm:py-12">
+
+    <!-- decorative accent, faded into the corner -->
+    <div class="absolute -top-6 -right-6 opacity-[0.07] pointer-events-none">
+      <span class="material-symbols-outlined text-[180px] sm:text-[220px]">auto_awesome</span>
+    </div>
+
+    <div class="relative flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+      <div class="max-w-xl">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><span class="material-symbols-outlined text-[14px]">favorite</span>Anniversaries</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><span class="material-symbols-outlined text-[14px]">local_florist</span>Mother's Day</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><span class="material-symbols-outlined text-[14px]">celebration</span>Custom Events</span>
+        </div>
+        <h3 class="font-serif text-2xl sm:text-3xl font-semibold leading-snug">Planning an Anniversary, Birthday, or Special Holiday?</h3>
+        <p class="mt-3 text-white/70 text-sm sm:text-base">We create custom setups tailored for any milestone. Tell us your date and vision, and we'll build a package for you.</p>
+      </div>
+      <a href="https://t.me/yourusername" target="_blank" rel="noopener" class="group flex-shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-primary text-ink px-7 py-3.5 font-semibold shadow-soft hover:bg-white hover:text-ink transition-all duration-300 hover:-translate-y-0.5">
+        <i class="fa-brands fa-telegram text-lg"></i>
+        Request Custom Package on Telegram 
+        <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -413,15 +464,11 @@ tailwind.config = {
     <h3 class="font-serif text-lg font-semibold mb-4 text-center sm:text-left">Who would you like to call?</h3>
     <div class="flex flex-col gap-2">
       <a href="tel:+251911234567" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
-        <span><span class="font-medium block">Main Line</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4567</span></span>
+        <span><span class="font-medium block">Phone number 1</span><span class="text-sm text-ink/55 dark:text-white/55">+251955820654</span></span>
         <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
       </a>
       <a href="tel:+251911234568" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
-        <span><span class="font-medium block">Bookings</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4568</span></span>
-        <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
-      </a>
-      <a href="tel:+251911234569" class="flex items-center justify-between rounded-xl px-4 py-3 border border-primary/15 hover:bg-primary/10 transition-colors">
-        <span><span class="font-medium block">Support</span><span class="text-sm text-ink/55 dark:text-white/55">+251 91 123 4569</span></span>
+        <span><span class="font-medium block">Phone number 2</span><span class="text-sm text-ink/55 dark:text-white/55">+251966797036</span></span>
         <span class="material-symbols-outlined text-primary-dark dark:text-primary">call</span>
       </a>
     </div>
@@ -446,15 +493,20 @@ tailwind.config = {
 <section id="about" class="section-fade max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
-    <div class="relative order-2 lg:order-1">
+       <div class="relative order-2 lg:order-1">
       <div class="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-primary/15 -z-10 rotate-2"></div>
       <div class="rounded-[1.75rem] overflow-hidden shadow-lift aspect-[4/3]">
         <img src="/assets/photo_1_2026-08-26_19-14-58.jpg" alt="A beautifully decorated surprise setup by Fancy Surprise Planner" class="w-full h-full object-cover">
       </div>
+
+      <div class="absolute -bottom-6 -left-4 sm:-left-6 w-[38%] sm:w-[34%] aspect-square rounded-2xl overflow-hidden shadow-lift border-4 border-background-light dark:border-surface-dark -rotate-3">
+        <img src="https://images.pexels.com/photos/7548036/pexels-photo-7548036.jpeg?auto=compress&cs=tinysrgb&w=800" alt="A close-up of a Fancy Surprise Planner setup" class="w-full h-full object-cover">
+      </div>
+
       <div class="absolute -bottom-6 -right-4 sm:-right-8 bg-background-light dark:bg-surface-dark border border-primary/20 rounded-2xl shadow-lift px-5 py-4 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl text-primary-dark dark:text-primary">favorite</span>
         <div class="text-left leading-tight">
-          <p class="font-serif text-lg font-semibold">2+ Years</p> 
+          <p class="font-serif text-lg font-semibold">2+ Years</p>
           <p class="text-xs text-ink/55 dark:text-white/55">crafting surprises</p>
         </div>
       </div>
@@ -464,7 +516,7 @@ tailwind.config = {
       <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">About Us</p>
       <h2 class="font-serif text-3xl sm:text-4xl font-semibold mb-5">Why choose Fancy Surprise Planner</h2>
       <p class="text-ink/70 dark:text-white/70 leading-relaxed mb-9">
-        We're all about creating moments that make people feel truly special. Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences.Especially for new moms and other milestone occasions.
+        We're all about creating moments that make people feel truly special. Based in Addis Ababa, our team designs thoughtful surprise packages and unique experiences,with a focus for new moms and other milestone occasions.We also guarante on-time setup for our works.
       </p>
 
       <!-- <div class="flex flex-col gap-1">
@@ -500,6 +552,44 @@ tailwind.config = {
     </div>
 
   </div>
+    <!-- How it works -->
+  <div class="mt-20 lg:mt-28">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">How It Works</p>
+      <h3 class="font-serif text-2xl sm:text-3xl font-semibold">From idea to reveal, without spoiling the secret</h3>
+    </div>
+
+    <div class="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
+      <div class="hidden sm:block absolute top-7 left-[16.5%] right-[16.5%] h-px bg-primary/25"></div>
+
+      <div class="relative flex flex-col items-center text-center gap-4">
+        <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink font-serif font-bold text-lg shadow-soft">1</div>
+        <span class="material-symbols-outlined text-2xl text-primary-dark dark:text-primary">chat</span>
+        <div>
+          <h4 class="font-semibold text-sm sm:text-base mb-1">Choose Your Package</h4>  
+          <p class="text-xs sm:text-sm text-ink/60 dark:text-white/60 max-w-[220px] mx-auto">Pick a package or a custom theme, all sorted out over a Telegram chat.</p>
+        </div>
+      </div>
+
+      <div class="relative flex flex-col items-center text-center gap-4">
+        <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink font-serif font-bold text-lg shadow-soft">2</div>
+        <span class="material-symbols-outlined text-2xl text-primary-dark dark:text-primary">visibility_off</span>
+        <div>
+          <h4 class="font-semibold text-sm sm:text-base mb-1">Secret Setup</h4>
+          <p class="text-xs sm:text-sm text-ink/60 dark:text-white/60 max-w-[220px] mx-auto">Our team quietly prepares the space while your loved one is away, so nothing gives it away.</p>
+        </div>
+      </div>
+
+      <div class="relative flex flex-col items-center text-center gap-4">
+        <div class="relative z-10 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-ink font-serif font-bold text-lg shadow-soft">3</div>
+        <span class="material-symbols-outlined text-2xl text-primary-dark dark:text-primary">celebration</span>
+        <div>
+          <h4 class="font-semibold text-sm sm:text-base mb-1">The Grand Reveal</h4>
+          <p class="text-xs sm:text-sm text-ink/60 dark:text-white/60 max-w-[220px] mx-auto">Bring them in and watch the moment you planned finally unfold.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== TESTIMONIALS ===================== -->
@@ -511,139 +601,170 @@ tailwind.config = {
       <span class="material-symbols-outlined text-gold text-[18px]">star</span>4.9 average from recent clients
     </div> -->
   </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7 gap-y-10 pt-7">
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-
-    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">S</div>
-        <div>
-          <p class="font-semibold text-sm">Selamawit</p>
-          <p class="text-xs text-ink/50 dark:text-white/50">2 months ago</p>
-        </div>
+    <div class="relative mt-0 flex flex-col items-center text-center gap-2.5 bg-white/70 dark:bg-white/[0.04] px-6 pt-9 pb-6 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark text-white font-serif font-semibold text-lg ring-4 ring-background-light dark:ring-background-dark shadow-soft">S</div>
+      <div>
+        <p class="font-semibold text-sm">Selamawit</p>
+        <p class="text-xs text-ink/50 dark:text-white/50">2 months ago</p>
       </div>
-      <div class="flex gap-0.5 text-gold">
-        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
-      </div>
-      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner exceeded all my expectations! They created the most magical surprise proposal for my fiancée. The attention to detail was truly remarkable.</p>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">"Fancy Surprise Planner exceeded all my expectations. They created the most magical surprise proposal for my fiancée. The attention to detail was truly remarkable."</p>
     </div>
 
-    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">A</div>
-        <div>
-          <p class="font-semibold text-sm">Abebe</p>
-          <p class="text-xs text-ink/50 dark:text-white/50">3 months ago</p>
-        </div>
+    <div class="relative mt-0 flex flex-col items-center text-center gap-2.5 bg-white/70 dark:bg-white/[0.04] px-6 pt-9 pb-6 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark text-white font-serif font-semibold text-lg ring-4 ring-background-light dark:ring-background-dark shadow-soft">A</div>
+      <div>
+        <p class="font-semibold text-sm">Abebe</p>
+        <p class="text-xs text-ink/50 dark:text-white/50">3 months ago</p>
       </div>
-      <div class="flex gap-0.5 text-gold">
-        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
-      </div>
-      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">I was blown away by the surprise birthday party they organized for my wife. The decorations were stunning and the event flawless. Truly unforgettable!</p>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">"I was blown away by the surprise birthday party they organized for my wife. The decorations were stunning and the event flawless."</p>
     </div>
 
-    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">T</div>
-        <div>
-          <p class="font-semibold text-sm">Tigist</p>
-          <p class="text-xs text-ink/50 dark:text-white/50">5 months ago</p>
-        </div>
+    <div class="relative mt-0 flex flex-col items-center text-center gap-2.5 bg-white/70 dark:bg-white/[0.04] px-6 pt-9 pb-6 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark text-white font-serif font-semibold text-lg ring-4 ring-background-light dark:ring-background-dark shadow-soft">T</div>
+      <div>
+        <p class="font-semibold text-sm">Tigist</p>
+        <p class="text-xs text-ink/50 dark:text-white/50">5 months ago</p>
       </div>
-      <div class="flex gap-0.5 text-gold">
-        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg text-ink/15 dark:text-white/15">star</span>
-      </div>
-      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Fancy Surprise Planner did a great job with my anniversary celebration. The decor was beautiful, and the team handled everything smoothly despite small hiccups.</p>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">"Fancy Surprise Planner did a great job with my anniversary celebration. The decor was beautiful and the team handled everything smoothly."</p>
     </div>
 
-    <div class="relative flex flex-col gap-4 bg-white/70 dark:bg-white/[0.04] p-7 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
-      <span class="material-symbols-outlined absolute top-5 right-5 text-primary/20 text-4xl">format_quote</span>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center justify-center rounded-full w-12 h-12 ring-2 ring-primary/25 bg-primary/20 text-primary-dark dark:text-primary font-serif font-semibold">M</div>
-        <div>
-          <p class="font-semibold text-sm">Meron</p>
-          <p class="text-xs text-ink/50 dark:text-white/50">1 month ago</p>
-        </div>
+    <div class="relative mt-0 flex flex-col items-center text-center gap-2.5 bg-white/70 dark:bg-white/[0.04] px-6 pt-9 pb-6 rounded-2xl border border-primary/15 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all duration-500">
+      <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-dark text-white font-serif font-semibold text-lg ring-4 ring-background-light dark:ring-background-dark shadow-soft">M</div>
+      <div>
+        <p class="font-semibold text-sm">Meron</p>
+        <p class="text-xs text-ink/50 dark:text-white/50">1 month ago</p>
       </div>
-      <div class="flex gap-0.5 text-gold">
-        <span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span><span class="material-symbols-outlined text-lg">star</span>
-      </div>
-      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">Booked the Golden package for my son's first birthday and it was perfect. Communication was easy and everything was set up before we even arrived.</p>
+      <p class="text-sm text-ink/75 dark:text-white/75 leading-relaxed">"Booked the Golden package for my son's first birthday and it was perfect. Communication was easy and everything was set up before we even arrived."</p>
     </div>
 
   </div>
 </section>
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="section-fade max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">FAQ</p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold">Frequently Asked Questions</h2>
+    <p class="mt-4 text-ink/65 dark:text-white/65">Everything you need to know before booking. Still unsure? Message us on Telegram anytime.</p>
+  </div>
 
+  <div class="flex flex-col gap-3">
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        How far in advance do I need to book?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">We recommend booking at least 1 to 2 weeks ahead for Silver and Golden packages, and 3 to 4 weeks for Platinum or fully custom setups, especially around weekends and holidays. That said, reach out even if your date is close. We'll always try to accommodate last minute surprises.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        Can you set up in hotel rooms, restaurants, or private homes?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">Yes, we regularly set up in hotel rooms, restaurants, private homes, and outdoor venues. Let us know the venue when you book so we can coordinate access with hotel or restaurant staff ahead of time.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        Do you service locations outside central Addis Ababa?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">Yes, we travel to surrounding areas including Bishoftu and Debre Zeit, Sebeta, and other nearby towns. A small travel fee may apply outside central Addis Ababa, so just mention your location when you reach out and we'll confirm.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        What's your cancellation or rescheduling policy?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">You can reschedule free of charge with at least 48 hours' notice. Cancellations made less than 48 hours before the event may forfeit part of the deposit, since materials are often already purchased by that point.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        Do I need to be present during setup, or can it stay a surprise for me too?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">It can absolutely stay a surprise for you too. We coordinate access with a trusted third party, like a partner, family member, hotel staff, or venue manager, so the space is ready before you ever walk in.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        What's actually included in the price?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">Each package includes decor, setup, and cleanup as listed in the Packages section above. Cake, flowers, and balloons are included from the Golden tier up. For Silver, these can be added on request for an extra fee.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        Is a deposit required to confirm my booking?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">Yes, a 50% deposit secures your date and covers material costs, with the remainder due on the day of setup. This also protects you, since your slot is guaranteed once the deposit is in.</p>
+      </div>
+    </details>
+
+    <details class="faq-item group rounded-2xl border border-primary/15 bg-white/70 dark:bg-white/[0.04] px-6 open:shadow-soft transition-shadow">
+      <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none font-semibold text-sm sm:text-base">
+        What happens if the weather is bad for an outdoor setup?
+        <span class="material-symbols-outlined faq-chevron text-primary-dark dark:text-primary flex-shrink-0">expand_more</span>
+      </summary>
+      <div class="faq-answer">
+        <p class="pb-5 text-sm text-ink/70 dark:text-white/70 leading-relaxed">We check the forecast with you 24 to 48 hours out and offer a free reschedule, or help you shift the setup indoors, so weather never puts the whole surprise at risk.</p>
+      </div>
+    </details>
+
+  </div>
 <!-- ===================== CONTACT ===================== -->
-<section id="contact" class="section-fade max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-  <div class="grid grid-cols-1 md:grid-cols-5 rounded-[2rem] overflow-hidden shadow-lift border border-primary/15">
+<section id="contact" class="section-fade relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
 
-    <div class="md:col-span-2 bg-ink dark:bg-surface-dark text-white p-9 sm:p-10 flex flex-col justify-between">
-      <div>
-        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary mb-3">Get In Touch</p>
-        <h2 class="font-serif text-2xl sm:text-3xl font-semibold mb-4">Let's plan your surprise</h2>
-        <p class="text-white/70 text-sm leading-relaxed">Tell us the occasion and the person we'll take it from there. We usually reply within a day.</p>
-      </div>
 
-      <div class="mt-10 flex flex-col gap-4 text-sm">
-        <div class="flex items-center gap-3">
-          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">location_on</span></span>
-          Addis Ababa, Ethiopia
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">call</span></span>
-         +251xxxxxxxxxx
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="flex items-center justify-center w-9 h-9 rounded-full bg-white/10"><span class="material-symbols-outlined text-[18px]">call</span></span>
-            +251xxxxxxxxxx
-        </div>
-      </div>
+  <div class="relative rounded-[2.5rem] bg-background-light dark:bg-surface-dark border border-primary/15 shadow-lift px-8 sm:px-12 py-12 text-center">
 
-      <div class="flex items-center gap-3 mt-10">
-        <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
-          <i class="fa-brands fa-tiktok text-sm"></i>
-        </a>
-        <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
-          <i class="fa-brands fa-instagram text-sm"></i>
-        </a>
-        <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-primary hover:bg-white/10 transition-all">
-          <i class="fa-brands fa-telegram text-sm"></i>
-        </a>
-      </div>
+    <p class="text-sm font-semibold tracking-[0.2em] uppercase text-primary-dark dark:text-primary mb-3">Get In Touch</p>
+    <h2 class="font-serif text-3xl sm:text-4xl font-semibold mb-3">Let's Plan Your Surpises</h2>
+    <p class="text-ink/65 dark:text-white/65 mb-8">Reach us directly and we'll get back to you fast.</p>
+
+    <a href="https://t.me/fancysurprise12" target="_blank" rel="noopener" class="group inline-flex items-center gap-3 rounded-full bg-primary text-ink px-8 py-4 font-semibold shadow-soft hover:bg-primary-dark hover:text-white hover:-translate-y-0.5 transition-all duration-300">
+      <i class="fa-brands fa-telegram text-lg"></i>
+      Chat on Telegram
+      <span class="material-symbols-outlined text-lg transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+    </a>
+    <p class="text-xs text-ink/45 dark:text-white/45 mt-3">Usually replies in under 15 minutes</p>
+
+    <div class="flex items-center justify-center gap-3 mt-8">
+      <button onclick="openCallSheet()" aria-label="Call us" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <span class="material-symbols-outlined text-[19px]">call</span>
+      </button>
+      <a href="https://www.instagram.com/fancysurprise12" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-instagram text-sm"></i>
+      </a>
+      <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-11 h-11 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+        <i class="fa-brands fa-tiktok text-sm"></i>
+      </a>
     </div>
 
-    <form action="#" method="POST" class="md:col-span-3 bg-background-light dark:bg-background-dark p-9 sm:p-10 flex flex-col gap-5">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
-          <label for="name" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required
-            class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-        </div>
-        <div>
-          <label for="phone" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="Your phone"
-            class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-        </div>
-      </div>
-      <div>
-        <label for="email" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required
-          class="w-full rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-      </div>
-      <div class="flex-1 flex flex-col">
-        <label for="message" class="block text-xs font-semibold uppercase tracking-wide mb-2 text-ink/60 dark:text-white/60">Message</label>
-        <textarea id="message" name="message" rows="4" placeholder="Tell us about the occasion..."
-          class="w-full flex-1 rounded-xl border border-primary/25 bg-white/60 dark:bg-white/5 py-3 px-4 text-sm focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"></textarea>
-      </div>
-      <button type="submit"
-        class="rounded-full bg-primary text-ink py-3.5 text-sm font-semibold shadow-soft hover:bg-primary-dark hover:text-white transition-colors">
-        Send Message
-      </button>
-    </form>
+    <div class="mt-9 pt-6 border-t border-primary/10 text-sm text-ink/55 dark:text-white/55 space-y-1.5">
+      <p>Based in Addis Ababa. Open daily, 8am to 8pm.</p> 
+      <p>Have something custom in mind? Just ask on Telegram.</p>
+    </div>
 
   </div>
 </section>
@@ -655,25 +776,17 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
 
     <div class="flex items-center gap-2">
-      <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-9 w-auto object-contain">
+      <img src="assets/logo.png" alt="Fancy Surprise Planner" class="h-16 w-auto object-contain">
     </div>
-
-    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink/60 dark:text-white/60">
-      <a href="#hero" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Home</a>
-      <a href="#packages" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Packages</a>
-      <a href="#gallery" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Gallery</a>
-      <a href="#about" class="hover:text-primary-dark dark:hover:text-primary transition-colors">About</a>
-      <a href="#contact" class="hover:text-primary-dark dark:hover:text-primary transition-colors">Contact</a>
-    </nav>
 
     <div class="flex items-center gap-3">
       <a href="https://www.tiktok.com/@fancy_surprise_planner" target="_blank" rel="noopener" aria-label="TikTok" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
         <i class="fa-brands fa-tiktok text-sm"></i>
       </a>
-      <a href="#" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+      <a href="https://www.instagram.com/fancysurprise12" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
         <i class="fa-brands fa-instagram text-sm"></i>
       </a>
-      <a href="#" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
+      <a href="https://t.me/fancysurprise12" target="_blank" rel="noopener" aria-label="Telegram" class="w-10 h-10 flex items-center justify-center rounded-full border border-primary/20 hover:border-primary hover:bg-primary/10 transition-all">
         <i class="fa-brands fa-telegram text-sm"></i>
       </a>
       <span class="w-px h-6 bg-primary/20 mx-1 hidden sm:inline-block"></span>
@@ -683,7 +796,18 @@ tailwind.config = {
       </button>
     </div>
   </div>
-  <p class="text-center text-xs text-ink/45 dark:text-white/45 mt-8">© 2026 <span class="font-semibold text-primary-dark dark:text-primary">Fancy Surprise Planner</span>. All rights reserved.</p>
+
+  <div class="flex justify-center mt-10">
+    <a href="#hero" aria-label="Back to top" class="group flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2.5 text-xs font-semibold text-ink/60 dark:text-white/60 hover:border-primary hover:text-primary-dark dark:hover:text-primary hover:bg-primary/10 transition-all">
+      <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:-translate-y-0.5">arrow_upward</span>
+      Back to Top
+    </a>
+  </div>
+
+  <p class="text-center text-xs text-ink/45 dark:text-white/45 mt-8">
+    <span class="block sm:inline">© 2026 <span class="font-semibold text-primary-dark dark:text-primary">Fancy Surprise Planner</span></span>
+    <span class="block sm:inline"> · All rights reserved.</span>
+  </p>
 </footer>
 
 </div>
@@ -696,7 +820,22 @@ function toggleTheme(){
   document.documentElement.classList.toggle('dark');
   localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 }
-
+function openCallSheet(){
+  const sheet = document.getElementById('call-sheet');
+  const card = document.getElementById('call-card');
+  sheet.style.display = 'flex';
+  requestAnimationFrame(() => {
+    card.classList.remove('translate-y-full', 'sm:translate-y-4', 'sm:opacity-0');
+  });
+  document.body.style.overflow = 'hidden';
+};
+function closeCallSheet(){
+  const sheet = document.getElementById('call-sheet');
+  const card = document.getElementById('call-card');
+  card.classList.add('translate-y-full', 'sm:translate-y-4', 'sm:opacity-0');
+  document.body.style.overflow = '';
+  setTimeout(() => { sheet.style.display = 'none'; }, 300);
+}; 
 /* ============================================================
    MOBILE MENU
 ============================================================ */

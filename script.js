@@ -6,22 +6,7 @@ hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   navLinks.classList.toggle("active");
 });
-function openCallSheet(){
-  const sheet = document.getElementById('call-sheet');
-  const card = document.getElementById('call-card');
-  sheet.style.display = 'flex';
-  requestAnimationFrame(() => {
-    card.classList.remove('translate-y-full', 'sm:translate-y-4', 'sm:opacity-0');
-  });
-  document.body.style.overflow = 'hidden';
-};
-function closeCallSheet(){
-  const sheet = document.getElementById('call-sheet');
-  const card = document.getElementById('call-card');
-  card.classList.add('translate-y-full', 'sm:translate-y-4', 'sm:opacity-0');
-  document.body.style.overflow = '';
-  setTimeout(() => { sheet.style.display = 'none'; }, 300);
-}; 
+
 document.getElementById('call-backdrop').addEventListener('click', closeCallSheet);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCallSheet(); }); 
 document.querySelectorAll(".nav-links a").forEach(link => {
